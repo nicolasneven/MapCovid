@@ -2,6 +2,7 @@ package com.example.mapcovid;
 
 import java.net.HttpURLConnection;
 import java.net.URLConnection;
+import java.net.URL;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,7 +16,7 @@ public class Media {
         String bearerToken = System.getenv("BEARER_TOKEN");
         if (null != bearerToken) {
             Map<String, String> rules = new HashMap<>();
-            rules.put("covid OR Coronavirus OR Covid-19 place:'los angeles'", "covid news in LA");
+            rules.put("covid OR Coronavirus OR Covid-19 OR Covid19 place:'los angeles'", "covid news in LA");
             setupRules(bearerToken, rules);
             connectStream(bearerToken);
         }

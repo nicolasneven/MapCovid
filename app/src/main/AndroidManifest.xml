@@ -29,10 +29,9 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
 
-        <!-- commented out by Nico, causes merger error when API key is not set-up
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="AIzaSyDdvVgxr1ImjzYJxDTBJzkMhyhn7Uo5Ye8" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -41,15 +40,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        -->
-
-        <activity android:name=".TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
