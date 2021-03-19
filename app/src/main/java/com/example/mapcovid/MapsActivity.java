@@ -39,9 +39,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng losangeles = new LatLng(34, -118);
-        mMap.addMarker(new MarkerOptions().position(losangeles).title("Marker in Los Angeles"));
+        LatLng losangeles = new LatLng(34.05, -118.24);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(losangeles));
         mMap.setMinZoomPreference(10);
+        LatLng expopark = new LatLng(34.011175,-118.28433);
+        mMap.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing"));
+        LatLng universalcommunity = new LatLng(34.02738,-118.25810);
+        mMap.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing"));
+        LatLng crenshaw = new LatLng(34.02243,-118.33473);
+        mMap.addMarker(new MarkerOptions().position(crenshaw).title("Crenshaw Testing"));
+        LatLng doctornow = new LatLng(34.06350,-118.37565);
+        mMap.addMarker(new MarkerOptions().position(doctornow).title("Doctor Now Testing"));
+        LatLng crenshawkiosk = new LatLng(33.98997,-118.32946);
+        mMap.addMarker(new MarkerOptions().position(crenshawkiosk).title("Crenshaw Kiosk Testing"));
+        LatLng jwch = new LatLng(34.04338,-118.24290);
+        mMap.addMarker(new MarkerOptions().position(jwch).title("JWCH Institute Testing"));
     }
 }
