@@ -43,7 +43,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(losangeles).title("Marker in Los Angeles"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(losangeles));
         mMap.setMinZoomPreference(10);
-        LatLng expopark = new LatLng(34.01485,-118.284);
+        LatLng expopark = new LatLng(34.011175,-118.28433);
         mMap.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing"));
+        LatLng universalcommunity = new LatLng(34.02738,-118.25810);
+        mMap.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing"));
     }
 }
