@@ -35,6 +35,11 @@ public class Media {
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Authorization", String.format("Bearer %s", bearerToken));
             BufferedReader reader = new BufferedReader(new InputStreamReader((connection.getInputStream())));
+            String line = reader.readLine();
+            while (line != null) {
+                System.out.println(line);
+            }
+
         }
         catch(IOException ioe){
             System.out.println(ioe.getMessage());
