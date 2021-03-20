@@ -53,7 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             layer.addLayerToMap();
             // Set a listener for geometry clicked events.
             layer.setOnFeatureClickListener(feature -> Toast.makeText(MapsActivity.this,
-                    "Feature clicked: " + feature.getId(),
+                    "Feature clicked: " + feature.getProperty("name"),
                     Toast.LENGTH_SHORT).show());
         } catch (XmlPullParserException e) {
             e.printStackTrace();
