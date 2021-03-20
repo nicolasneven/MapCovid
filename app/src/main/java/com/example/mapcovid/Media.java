@@ -20,10 +20,9 @@ public class Media {
             setupRules(bearerToken, rules);
             connectStream(bearerToken);
         }
-        else{
+        else {
             System.out.println("Bearer Token not found");
         }
-
 
     }
     //This method calls the filtered stream endpoint and streams Tweets from it
