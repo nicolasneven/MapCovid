@@ -3,6 +3,8 @@ package com.example.mapcovid;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,11 +12,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.data.Feature;
 import com.google.maps.android.data.geojson.*;
-
+import com.google.maps.android.data.kml.KmlLayer;
 
 import org.json.JSONException;
-
+import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -46,14 +49,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // USC Neighborhood Polygons
         try {
-            GeoJsonLayer layer = new GeoJsonLayer(mMap, R.raw.neighborhoods, getApplicationContext());
+            KmlLayer layer = new KmlLayer(mMap, R.raw.colored, getApplicationContext());
             layer.addLayerToMap();
+            // Set a listener for geometry clicked events.
+            layer.setOnFeatureClickListener(feature -> Toast.makeText(MapsActivity.this,
+                    "Feature clicked: " + feature.getId(),
+                    Toast.LENGTH_SHORT).show());
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-
 
         // Testing Locations
         LatLng losangeles = new LatLng(34.05, -118.24);
