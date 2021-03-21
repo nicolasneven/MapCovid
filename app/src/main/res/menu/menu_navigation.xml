@@ -11,12 +11,12 @@
         android:icon="@drawable/ic_news"/>
 
     <item
-        android:id="@+id/history"
+        android:id="@+id/activity_history"
         android:title="History"
         android:icon="@drawable/ic_history"/>
 
     <item
-        android:id="@+id/setting"
+        android:id="@+id/settings_activity"
         android:title="Settings"
         android:icon="@drawable/ic_settings"/>
 
