@@ -27,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent i=new Intent(HomeActivity.this,
-                        MapsActivity0.class);
+                        MapsActivity.class);
                 //Intent is used to switch from one activity to another.
 
                 startActivity(i);
