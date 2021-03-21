@@ -216,8 +216,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         map.addMarker(new MarkerOptions().position(crenshawkiosk).title("Crenshaw Kiosk Testing"));
         LatLng jwch = new LatLng(34.04338,-118.24290);
         map.addMarker(new MarkerOptions().position(jwch).title("JWCH Institute Testing"));
-        LatLng community = new LatLng(34.05608,-118.27463);
-        map.addMarker(new MarkerOptions().position(community).title("Angeles Community Testing"));
+
     }
 
     /**
