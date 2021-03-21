@@ -150,7 +150,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         this.map = map;
 
-
+        /*
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
         this.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -175,7 +175,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 return infoWindow;
             }
-        });
+        }); */
 
         // Prompt the user for permission.
         getLocationPermission();
