@@ -209,8 +209,8 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
         }
 
         // Testing Locations
-        LatLng losangeles = new LatLng(34.05, -118.24);
-        map.moveCamera(CameraUpdateFactory.newLatLng(losangeles));
+        LatLng usc = new LatLng(34.02038, -118.27720);
+        map.moveCamera(CameraUpdateFactory.newLatLng(usc));
         map.setMinZoomPreference(10);
         LatLng expopark = new LatLng(34.011175,-118.28433);
         map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing"));
@@ -224,6 +224,10 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
         map.addMarker(new MarkerOptions().position(crenshawkiosk).title("Crenshaw Kiosk Testing"));
         LatLng jwch = new LatLng(34.04338,-118.24290);
         map.addMarker(new MarkerOptions().position(jwch).title("JWCH Institute Testing"));
+        LatLng jwch = new LatLng(34.04338,-118.24290);
+        map.addMarker(new MarkerOptions().position(jwch).title("JWCH Institute Testing"));
+        LatLng community = new LatLng(34.05608,-118.27463);
+        map.addMarker(new MarkerOptions().position(jwch).title("Angeles Community Testing"));
 
     }
 
