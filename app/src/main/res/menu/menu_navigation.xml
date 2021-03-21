@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/activity_maps"
+        android:id="@+id/mapicon"
         android:title="Maps"
         android:icon="@drawable/ic_map"/>
 
     <item
-        android:id="@+id/activity_media"
+        android:id="@+id/mediaicon"
         android:title="News"
         android:icon="@drawable/ic_news"/>
 
     <item
-        android:id="@+id/activity_history"
+        android:id="@+id/historyicon"
         android:title="History"
         android:icon="@drawable/ic_history"/>
 
     <item
-        android:id="@+id/settings_activity"
+        android:id="@+id/settingsicon"
         android:title="Settings"
         android:icon="@drawable/ic_settings"/>
 

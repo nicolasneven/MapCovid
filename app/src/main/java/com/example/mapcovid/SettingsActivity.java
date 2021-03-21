@@ -33,24 +33,24 @@ public class SettingsActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-        navView.setSelectedItemId(R.id.settings_activity);
+        navView.setSelectedItemId(R.id.settingsicon);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.activity_maps:
+                    case R.id.mapicon:
                         startActivity(new Intent(getApplicationContext(), MapsActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.activity_media:
+                    case R.id.mediaicon:
                         startActivity(new Intent(getApplicationContext(), MediaActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.activity_history:
+                    case R.id.historyicon:
                         startActivity(new Intent(getApplicationContext(), History.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.settings_activity:
+                    case R.id.settingsicon:
                         return true;
                 }
                 return false;
