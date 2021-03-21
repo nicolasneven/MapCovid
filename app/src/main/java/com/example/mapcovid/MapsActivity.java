@@ -90,14 +90,7 @@ public class MapsActivity extends AppCompatActivity
         setContentView(R.layout.activity_maps);
         navView = findViewById(R.id.bottom_navigation);
 
-       /*new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run(){
-                Intent homeIntent = new Intent(MapsActivity.this, SplashActivity.class);
-                startActivity(homeIntent);
-                finish();
-            }
-        }, SPLASH_TIME_OUT);*/
+
 
 
 
