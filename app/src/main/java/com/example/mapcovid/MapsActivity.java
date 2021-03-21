@@ -118,21 +118,24 @@ public class MapsActivity extends AppCompatActivity
         map.moveCamera(CameraUpdateFactory.newLatLng(losangeles));
         map.setMinZoomPreference(10);
         LatLng expopark = new LatLng(34.011175,-118.28433);
-        map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing"));
+        map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng universalcommunity = new LatLng(34.02738,-118.25810);
-        map.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing"));
+        map.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng crenshaw = new LatLng(34.02243,-118.33473);
-        map.addMarker(new MarkerOptions().position(crenshaw).title("Crenshaw Testing"));
+        map.addMarker(new MarkerOptions().position(crenshaw).title("Crenshaw Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng doctornow = new LatLng(34.06350,-118.37565);
-        map.addMarker(new MarkerOptions().position(doctornow).title("Doctor Now Testing"));
+        map.addMarker(new MarkerOptions().position(doctornow).title("Doctor Now Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng crenshawkiosk = new LatLng(33.98997,-118.32946);
-        map.addMarker(new MarkerOptions().position(crenshawkiosk).title("Crenshaw Kiosk Testing"));
+        map.addMarker(new MarkerOptions().position(crenshawkiosk).title("Crenshaw Kiosk Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng jwch = new LatLng(34.04338,-118.24290);
-        map.addMarker(new MarkerOptions().position(jwch).title("JWCH Institute Testing"));
-<<<<<<< HEAD
+        map.addMarker(new MarkerOptions().position(jwch).title("JWCH Institute Testing").snippet("Hours: Mon-Fri 9-5"));
+        LatLng engemann = new LatLng(34.02551,-118.28808);
+        map.addMarker(new MarkerOptions().position(engemann).title("USC Engemann Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng community = new LatLng(34.05608,-118.27463);
-        map.addMarker(new MarkerOptions().position(community).title("Angeles Community Testing"));
-=======
+        map.addMarker(new MarkerOptions().position(community).title("Angeles Community Testing").snippet("Hours: Mon-Fri 9-5"));
+        LatLng engemannn = new LatLng(34.02551,-118.28808);
+        map.addMarker(new MarkerOptions().position(engemannn).title("USC Engemann Testing").snippet("Hours: Mon-Fri 9-5"));
+
     }
 
     /**
@@ -205,7 +208,7 @@ public class MapsActivity extends AppCompatActivity
     private void showMissingPermissionError() {
         PermissionUtils.PermissionDeniedDialog
                 .newInstance(true).show(getSupportFragmentManager(), "dialog");
->>>>>>> parent of 88fad0b... maps
+
     }
 
     /**
