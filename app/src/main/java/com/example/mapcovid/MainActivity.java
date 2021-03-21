@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.activity_maps:
-                        startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MapsActivity0.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.activity_media:

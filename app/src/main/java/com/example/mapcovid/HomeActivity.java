@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.WindowManager;
-import android.os.Bundle;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -28,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent i=new Intent(HomeActivity.this,
-                        MapsActivity.class);
+                        MapsActivity0.class);
                 //Intent is used to switch from one activity to another.
 
                 startActivity(i);
