@@ -3,8 +3,11 @@ package com.example.mapcovid;
 import androidx.fragment.app.FragmentActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -19,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.maps.android.data.kml.KmlLayer;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -77,11 +81,55 @@ public class MapsActivity extends AppCompatActivity
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location lastKnownLocation;
+    private static int SPLASH_TIME_OUT = 4000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_location_demo);
+
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run(){
+                Intent homeIntent = new Intent(MapsActivity.this, SplashActivity.class);
+                startActivity(homeIntent);
+                finish();
+            }
+        }, SPLASH_TIME_OUT);
+
+        /*
+        // Construct a PlacesClient
+        Places.initialize(getApplicationContext(), "AIzaSyDdvVgxr1ImjzYJxDTBJzkMhyhn7Uo5Ye8");
+        placesClient = Places.createClient(this);
+        */
+
+        BottomNavigationView navView = findViewById(R.id.bottom_navigation);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+
+        navView.setSelectedItemId(R.id.activity_maps);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.activity_maps:
+                        return true;
+                    case R.id.activity_media:
+                        startActivity(new Intent(getApplicationContext(), MediaActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.activity_history:
+                        startActivity(new Intent(getApplicationContext(), History.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.settings_activity:
+                        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
