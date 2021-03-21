@@ -213,7 +213,7 @@ public class MapsActivity extends AppCompatActivity
     @Override
     public boolean onMyLocationButtonClick() {
         // Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        getDeviceLocation();
+        // getDeviceLocation();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
@@ -268,6 +268,7 @@ public class MapsActivity extends AppCompatActivity
      * Gets the current location of the device, and positions the map's camera.
      */
     private void getDeviceLocation() {
+        Toast.makeText(this, "called getDeviceLocation()", Toast.LENGTH_SHORT).show();
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
@@ -280,6 +281,7 @@ public class MapsActivity extends AppCompatActivity
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "called getDeviceLocation()");
+
                             // Set the map's camera position to the current location of the device.
                             lastKnownLocation = task.getResult();
                             if (lastKnownLocation != null) {
