@@ -1,6 +1,9 @@
 package com.example.mapcovid;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -8,6 +11,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.data.kml.KmlLayer;
 import org.xmlpull.v1.XmlPullParserException;
@@ -47,7 +51,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private final LatLng defaultLocation = new LatLng(34.05, -118.24);
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
@@ -146,7 +150,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         this.map = map;
 
-        /*
+
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
         this.map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -171,7 +175,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 return infoWindow;
             }
-        }); */
+        });
 
         // Prompt the user for permission.
         getLocationPermission();
@@ -198,8 +202,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Testing Locations
         LatLng losangeles = new LatLng(34.05, -118.24);
-        map.moveCamera(CameraUpdateFactory.newLatLng(losangeles));
-        map.setMinZoomPreference(10);
+        // map.moveCamera(CameraUpdateFactory.newLatLng(losangeles));
+        // map.setMinZoomPreference(10);
         LatLng expopark = new LatLng(34.011175,-118.28433);
         map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing"));
         LatLng universalcommunity = new LatLng(34.02738,-118.25810);
