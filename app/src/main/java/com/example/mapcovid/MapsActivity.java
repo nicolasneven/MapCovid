@@ -82,20 +82,24 @@ public class MapsActivity extends AppCompatActivity
     // location retrieved by the Fused Location Provider.
     private Location lastKnownLocation;
     private static int SPLASH_TIME_OUT = 4000;
+    private BottomNavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_location_demo);
+        setContentView(R.layout.activity_maps);
+        navView = findViewById(R.id.bottom_navigation);
 
-        new Handler().postDelayed(new Runnable(){
+       /*new Handler().postDelayed(new Runnable(){
             @Override
             public void run(){
                 Intent homeIntent = new Intent(MapsActivity.this, SplashActivity.class);
                 startActivity(homeIntent);
                 finish();
             }
-        }, SPLASH_TIME_OUT);
+        }, SPLASH_TIME_OUT);*/
+
+
 
         /*
         // Construct a PlacesClient
@@ -103,14 +107,15 @@ public class MapsActivity extends AppCompatActivity
         placesClient = Places.createClient(this);
         */
 
-        BottomNavigationView navView = findViewById(R.id.bottom_navigation);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-        navView.setSelectedItemId(R.id.mapicon);
+        //navView.setSelectedItemId(R.id.mapicon);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                //Toast.makeText(MapsActivity.this, ""+item.getTitle(), Toast.LENGTH_SHORT).show();
+                //return true;
                 switch (item.getItemId()){
                     case R.id.mapicon:
                         return true;
