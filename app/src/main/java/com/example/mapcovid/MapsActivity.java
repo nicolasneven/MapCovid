@@ -19,6 +19,7 @@ import com.google.maps.android.data.kml.KmlLayer;
 import org.json.JSONException;
 import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
+import java.util.logging.Handler;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
