@@ -114,9 +114,9 @@ public class MapsActivity extends AppCompatActivity
         }
 
         // Testing Locations
-        LatLng losangeles = new LatLng(34.05, -118.24);
-        map.moveCamera(CameraUpdateFactory.newLatLng(losangeles));
-        map.setMinZoomPreference(10);
+        LatLng usc = new LatLng(34.02024, -118.28083);
+        map.moveCamera(CameraUpdateFactory.newLatLng(usc));
+        map.setMinZoomPreference(14);
         LatLng expopark = new LatLng(34.011175,-118.28433);
         map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng universalcommunity = new LatLng(34.02738,-118.25810);
