@@ -58,7 +58,7 @@ public class MapsActivity0 extends FragmentActivity implements OnMapReadyCallbac
         }
 
         // Testing Locations
-        LatLng losangeles = new LatLng(34.05, -118.24);
+        LatLng losangeles = new LatLng(34.02038, -118.27720);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(losangeles));
         mMap.setMinZoomPreference(10);
         LatLng expopark = new LatLng(34.011175,-118.28433);
