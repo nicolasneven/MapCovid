@@ -8,17 +8,17 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="718dp"
-        android:layout_height="1049dp"
+        android:layout_width="635dp"
+        android:layout_height="1041dp"
         app:srcCompat="@drawable/onboarding_1"
-        tools:layout_editor_absoluteX="-100dp"
-        tools:layout_editor_absoluteY="-39dp" />
+        tools:layout_editor_absoluteX="-46dp"
+        tools:layout_editor_absoluteY="-10dp" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next"
-        tools:layout_editor_absoluteX="213dp"
-        tools:layout_editor_absoluteY="792dp" />
+        tools:layout_editor_absoluteX="256dp"
+        tools:layout_editor_absoluteY="827dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
