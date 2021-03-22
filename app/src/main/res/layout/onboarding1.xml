@@ -13,4 +13,12 @@
         app:srcCompat="@drawable/onboarding_1"
         tools:layout_editor_absoluteX="-100dp"
         tools:layout_editor_absoluteY="-42dp" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="213dp"
+        tools:layout_editor_absoluteY="792dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
