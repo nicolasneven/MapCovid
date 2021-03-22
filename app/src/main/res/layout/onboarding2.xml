@@ -6,17 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        ndroid:id="@+id/imageView"
-        android:layout_width="635dp"
-        android:layout_height="1041dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/onboarding_1"
-        tools:layout_editor_absoluteX="-46dp"
-        tools:layout_editor_absoluteY="-10dp" />
-
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
@@ -24,4 +13,12 @@
         android:text="Next"
         tools:layout_editor_absoluteX="159dp"
         tools:layout_editor_absoluteY="667dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/onboarding_2"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
