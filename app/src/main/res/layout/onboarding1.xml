@@ -12,7 +12,7 @@
         android:layout_height="1049dp"
         app:srcCompat="@drawable/onboarding_1"
         tools:layout_editor_absoluteX="-100dp"
-        tools:layout_editor_absoluteY="-42dp" />
+        tools:layout_editor_absoluteY="-39dp" />
 
     <Button
         android:id="@+id/button3"
