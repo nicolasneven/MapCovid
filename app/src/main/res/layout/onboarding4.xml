@@ -7,12 +7,15 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="503dp"
-        android:layout_height="820dp"
-        app:srcCompat="@drawable/onboarding_4"
+        android:id="@+id/imageView"
+        android:layout_width="635dp"
+        android:layout_height="1041dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/onboarding_1"
         tools:layout_editor_absoluteX="-46dp"
-        tools:layout_editor_absoluteY="-68dp" />
+        tools:layout_editor_absoluteY="-10dp" />
 
     <Button
         android:id="@+id/button6"
