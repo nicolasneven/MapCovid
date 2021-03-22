@@ -202,8 +202,11 @@
         <Data name="description">
           <value/>
         </Data>
-        <Data name="data">
-          <value>12365.0</value>
+        <Data name="cases">
+          <value>3395</value>
+        </Data>
+        <Data name="deaths">
+          <value>51</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -233,8 +236,11 @@
         <Data name="description">
           <value/>
         </Data>
-        <Data name="data">
-          <value>13489.0</value>
+        <Data name="cases">
+          <value>6059</value>
+        </Data>
+        <Data name="deaths">
+          <value>82</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -265,8 +271,11 @@
         <Data name="description">
           <value/>
         </Data>
-        <Data name="data">
-          <value>14216.0</value>
+        <Data name="cases">
+          <value>1166</value>
+        </Data>
+        <Data name="deaths">
+          <value>20</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -292,8 +301,11 @@
         <Data name="description">
           <value/>
         </Data>
-        <Data name="data">
-          <value>14220.0</value>
+        <Data name="cases">
+          <value>1148</value>
+        </Data>
+        <Data name="deaths">
+          <value>12</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -322,8 +334,11 @@
         <Data name="description">
           <value/>
         </Data>
-        <Data name="data">
-          <value>16713.0</value>
+        <Data name="cases">
+          <value>6993</value>
+        </Data>
+        <Data name="deaths">
+          <value>212</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -362,8 +377,11 @@
         <Data name="description">
           <value/>
         </Data>
-        <Data name="data">
-          <value>14139.0</value>
+        <Data name="cases">
+          <value>2250</value>
+        </Data>
+        <Data name="deaths">
+          <value>66</value>
         </Data>
       </ExtendedData>
       <Polygon>
