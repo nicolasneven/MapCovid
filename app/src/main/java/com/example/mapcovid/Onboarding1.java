@@ -23,4 +23,17 @@ public class Onboarding1 extends AppCompatActivity{
         next.setOnClickListener((View.OnClickListener) this);
     }
 
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.next:
+
+                if (relativeLayout.getVisibility() == View.GONE) {
+                    expand();
+                } else {
+                    collapse();
+                }
+                break;
+        }
+    }
+
 }
