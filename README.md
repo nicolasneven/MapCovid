@@ -1,31 +1,8 @@
-# MapCovid
+# MapCovid Build Instructions
 
-Ever wonder if it is safe to go to a place? Is the place you’re going to visit too busy to practice
-social distancing? Do you know the current COVID infection rate in your neighborhood? In this
-unprecedented time, it's important to keep ourselves safe and maintain social distancing. It is
-critical for us to know the risks when going out.
-
-MapCovid is a map-based app that can keep you updated on surrounding COVID cases and
-infection rates, as well as other important information in your neighborhood.
-
-Major features of MapCovid include:
-• The app should at least work in Los Angeles County.
-• The main page of the app should show a colored map that represents the severity(cases)
-of each city/community, if not possible, you can also use dummy data source made by
-yourself.
-• The app should be able to display latest local COVID data such as new COVID cases,
-deaths, and other important data such as news, COVID-related twitter feed (could be in a
-separate tab or page) based on the user's current location or user's input/selection.
-• The app should be able to work in the background, and support push notifications.
-• Geofencing. Whenever users are moving into a new city/community, notify the user of the
-local cases by either push notification or provide an ongoing notification that updates
-based on location.
-• Travel Tracking. If user permits, the app could provide the ability to track the location/path
-that user visited each day, and provide a page that lists travel path, place visited today
-and corresponding COVID severity data along the path (such as community level COVID
-infection rates). The data should be kept local, and at least for 21 days. Users can revisit
-their past travel history anytime in the app.
-• Show nearby COVID Test locations and information in the app (such as on the map)
-• Ability to delete all privacy related (such as GPS data, history) collected.
-• You don’t need to register to use this app.
-• Bonus Points: Ability to display if the place is crowded. Similar to the one in Google maps.
+1) Launch the emulator (we have been testing on Pixel_3a_API_30_x86).
+2) Change the emulator's location setting by clicking the three dots at the bottom of the white toolbar. Set the location to USC.
+3) Launch MapCovid and accept location permissions. Sometimes it takes a second for location to show. If nothing changes back out and re-renter the application or switch back and forth in the navigation bar.
+4) You can now view covid location data, testing locations, and center camera on the emulators location.
+5) To change permissions after selecting go to the Android settings app and navigate to apps then MapCovid. Change location permission to deny. To view changes, remove app via multi-tasking and click force stop.
+6) You are still able to view the map while location permissions are denied, but the app will recommend you accept permission when re-opening.
