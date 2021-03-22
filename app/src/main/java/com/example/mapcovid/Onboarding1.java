@@ -7,22 +7,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
 
-public class Onboarding1 {
-    private static int SPLASH_TIME_OUT = 2000;
+public class Onboarding1 extends AppCompatActivity{
+
+    Button next;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
 
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run(){
-                Intent homeIntent = new Intent(SplashActivity.this, MapsActivity.class);
-                startActivity(homeIntent);
-                finish();
-            }
-        }, SPLASH_TIME_OUT);
-
+        next = (Button) findViewById(R.id.next);
+        next.setOnClickListener((View.OnClickListener) this);
     }
+
 }
