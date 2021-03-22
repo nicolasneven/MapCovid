@@ -10,7 +10,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
-public class Onboarding1 extends AppCompatActivity{
+public class Onboarding1 extends AppCompatActivity implements View.OnClickListener {
 
     Button next;
 

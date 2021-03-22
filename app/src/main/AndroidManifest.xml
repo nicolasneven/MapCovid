@@ -22,6 +22,12 @@
         <activity android:name=".MediaActivity" />
         <activity android:name=".MapsActivity" />
         <activity android:name=".SettingsActivity" />
+        <activity android:name=".Onboarding1" />
+        <activity android:name=".Onboarding2" />
+        <activity android:name=".Onboarding3" />
+        <activity android:name=".Onboarding4" />
+        <activity android:name=".Onboarding5" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
