@@ -10,6 +10,8 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:insetLeft="155dp"
+        android:insetTop="600dp"
         android:text="Next"
         tools:layout_editor_absoluteX="256dp"
         tools:layout_editor_absoluteY="827dp" />
