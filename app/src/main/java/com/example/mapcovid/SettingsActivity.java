@@ -159,4 +159,25 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
 
         }
     }
+
+    Button location;
+    Button notification;
+    public SettingsActivity(){
+        location = new Button(this);
+        location = createLocationButton();
+        notification = new Button(this);
+        notification = createNotificationButton();
+    }
+
+    public Button createLocationButton(){
+        return (Button) location;
+    }
+    public Button createNotificationButton(){
+        return (Button) notification;
+    }
+
+
+
+
+
 }
