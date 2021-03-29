@@ -19,6 +19,7 @@ import static androidx.test.espresso.action.ViewActions.*;
 import static androidx.test.espresso.web.webdriver.DriverAtoms.clearElement;
 import static androidx.test.espresso.web.webdriver.DriverAtoms.findElement;
 import static androidx.test.espresso.web.webdriver.DriverAtoms.getText;
+import static androidx.test.espresso.web.webdriver.DriverAtoms.selectActiveElement;
 import static androidx.test.espresso.web.webdriver.DriverAtoms.webClick;
 import androidx.test.espresso.web.webdriver.DriverAtoms;
 import androidx.test.espresso.web.webdriver.Locator;
@@ -39,10 +40,21 @@ public class TwitterUITest {
                     onWebView(withId(R.id.timeline_webview)).forceJavascriptEnabled();
                 }
             };
+    //Tests the scroll functionality of Twitter Timeline
     @Test
     public void testScroll() {
         onView(withId(R.id.timeline_webview))
                 //.withElement(findElement(Locator.ID,"container"))
+                .perform(ViewActions.swipeDown());
+        onView(withId(R.id.timeline_webview))
                 .perform(ViewActions.swipeUp());
     }
+    //Tests clicking on a tweet from within the timeline
+    @Test
+    public void testClick(){
+        onWebView(withId(R.id.timeline_webview))
+                .withElement(selectActiveElement())
+                .perform(webClick());
+    }
+
 }
