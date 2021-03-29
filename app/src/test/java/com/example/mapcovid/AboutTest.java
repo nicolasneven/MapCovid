@@ -28,9 +28,7 @@ public class AboutTest {
 
     @Test
     public void aboutExpand(){
-        //RelativeLayout relativeLayout;
-        //ValueAnimator mAnimator;
-        //assertTrue(SettingsActivity.expandTest());
+
     }
 
 }
