@@ -61,6 +61,8 @@ public class MapsActivity extends AppCompatActivity
      */
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
+    // private static boolean testPermission = false;
+
     /**
      * Flag indicating whether a requested permission has been denied after returning in
      * {@link #onRequestPermissionsResult(int, String[], int[])}.
@@ -189,17 +191,21 @@ public class MapsActivity extends AppCompatActivity
      * Enables the My Location layer if the fine location permission has been granted.
      */
     private void enableMyLocation() {
+
         // [START maps_check_location_permission]
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             if (map != null) {
                 map.setMyLocationEnabled(true);
+                // permission = true;
                 // getDeviceLocation();
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
             PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
+            // permission = false;
+
         }
         // [END maps_check_location_permission]
     }
@@ -296,5 +302,18 @@ public class MapsActivity extends AppCompatActivity
         } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage(), e);
         }
+    }
+
+    public static int getLocationPermission() {
+        return LOCATION_PERMISSION_REQUEST_CODE;
+    }
+
+    public static String getTag() {
+        return TAG;
+    }
+
+    public static String getDefaultLocation() {
+        LatLng loc = new LatLng(34.05, -118.24);
+        return loc.toString();
     }
 }
