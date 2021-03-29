@@ -16,6 +16,7 @@ public class MediaActivity extends AppCompatActivity {
 
     private static final String widgetInfo = "<a class=\"twitter-timeline\" href=\"https://twitter.com/charlesoxyer/timelines/1373342013463130117?ref_src=twsrc%5Etfw\">MapCovid - Curated tweets by charlesoxyer</a> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>";
 
+    private static final String widgetLink = "https://twitter.com/charlesoxyer/timelines/1373342013463130117?ref_src=twsrc%5Etfw";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,4 +65,5 @@ public class MediaActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         return true;
     }
+
 }

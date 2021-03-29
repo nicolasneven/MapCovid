@@ -17,14 +17,22 @@ public class Media {
         if (null != bearerToken) {
             Map<String, String> rules = new HashMap<>();
             rules.put("(covid OR Coronavirus OR Covid-19 OR Covid19) AND (Los Angeles)", "covid news in LA");
-            setupRules(bearerToken, rules);
-            connectStream(bearerToken);
+            //setupRules(bearerToken, rules);
+           // connectStream(bearerToken);
         }
         else {
             System.out.println("Bearer Token not found");
         }
 
     }
+    public String displayRules(){
+        return "\"(covid OR Coronavirus OR Covid-19 OR Covid19) AND (Los Angeles)\", \"covid news in LA\"";
+
+    }
+    public String getURL(){
+        return "https://twitter.com/charlesoxyer/timelines/1373342013463130117?ref_src=twsrc%5Etfw";
+    }
+    /*
     //This method calls the filtered stream endpoint and streams Tweets from it
     private static void connectStream(String bearerToken) throws IOException, URISyntaxException {
         HttpURLConnection connection = null;
@@ -152,5 +160,5 @@ public class Media {
             return String.format(string, result.substring(0, result.length() - 1));
         }
     }
-
+*/
 }
