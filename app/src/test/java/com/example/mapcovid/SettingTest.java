@@ -20,24 +20,24 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class SettingTest {
     @Mock
-    SettingsActivity settingbObj;
+    SettingsActivity settingObj;
     //Checks if the location tracking button is successfully created in the setting screen
     @Test
     public void locatonButtonTest(){
-        settingbObj = new SettingsActivity();
+        settingObj = new SettingsActivity();
         Button a;
-        a = settingbObj.createLocationButton();
+        a = settingObj.createLocationButton();
         assertNotNull(a);
     }
 
     @Mock
-    SettingsActivity settingbObj2;
+    SettingsActivity settingObj2;
     //Checks if the location tracking button is successfully created in the setting screen
     @Test
     public void notificationButtonTest(){
-        settingbObj2 = new SettingsActivity();
+        settingObj2 = new SettingsActivity();
         Button b;
-        b = settingbObj2.createNotificationButton();
+        b = settingObj2.createNotificationButton();
         assertNotNull(b);
     }
 

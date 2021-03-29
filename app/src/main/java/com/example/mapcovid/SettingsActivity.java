@@ -25,6 +25,27 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
     Button viewmore;
     ValueAnimator mAnimator;
 
+    Button location;
+    Button notification;
+    public SettingsActivity(){
+        location = new Button(this);
+        location = createLocationButton();
+        notification = new Button(this);
+        notification = createNotificationButton();
+        viewmore = new Button(this);
+        viewmore = createNotificationButton();
+    }
+
+    public Button createLocationButton(){
+        return (Button) location;
+    }
+    public Button createNotificationButton(){
+        return (Button) notification;
+    }
+    public Button createAboutButton(){
+        return (Button) viewmore;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,25 +180,5 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
 
         }
     }
-
-    Button location;
-    Button notification;
-    public SettingsActivity(){
-        location = new Button(this);
-        location = createLocationButton();
-        notification = new Button(this);
-        notification = createNotificationButton();
-    }
-
-    public Button createLocationButton(){
-        return (Button) location;
-    }
-    public Button createNotificationButton(){
-        return (Button) notification;
-    }
-
-
-
-
 
 }
