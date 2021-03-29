@@ -19,4 +19,9 @@ public class WebScraper {
         }
     }
 
+    public static boolean isEqual("Expo Park") {
+
+        return name == _____
+    }
+
 }
