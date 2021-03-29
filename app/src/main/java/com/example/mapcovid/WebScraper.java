@@ -7,7 +7,18 @@ import java.io.IOException;
 
 public class WebScraper {
 
+    private static boolean successful = false;
+
     public static void main(String[] args) throws IOException {
+        printData();
+    }
+
+    public static boolean loadWebsite() throws IOException {
+        Document doc = Jsoup.connect("http://publichealth.lacounty.gov/media/coronavirus/locations.htm").get();
+        return true;
+    }
+
+    public static boolean printData() throws IOException {
         Document doc = Jsoup.connect("http://publichealth.lacounty.gov/media/coronavirus/locations.htm").get();
         Elements table = doc.select("table.table.table-striped.table-bordered.table-sm").next();
         // System.out.println(table.html());
@@ -17,11 +28,7 @@ public class WebScraper {
             if (i > 340) break;
             else i++;
         }
-    }
-
-    public static boolean isEqual("Expo Park") {
-
-        return name == _____
+        return true;
     }
 
 }
