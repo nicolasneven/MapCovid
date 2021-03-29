@@ -15,6 +15,7 @@ public class Onboarding1 extends AppCompatActivity implements View.OnClickListen
     Button next;
     public Onboarding1(){
         next = new Button(this);
+        next.setText("Next");
         next = createButton();
     }
 
@@ -35,6 +36,7 @@ public class Onboarding1 extends AppCompatActivity implements View.OnClickListen
         }
     }
     public Button createButton(){
+        next.setText("Next");
        return (Button) next;
     }
 

@@ -30,4 +30,13 @@ public class OnboardingTest {
         assertNotNull(b);
 
     }
+    //Tests to make sure the text on the "next" button displays the word "next"
+    @Test
+    public void onboardingTextTest(){
+        oboard = new Onboarding1();
+        Button b;
+        b = oboard.createButton();
+        assertNotEquals(oboard.next.getText(),"Null");
+
+    }
 }
