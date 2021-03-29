@@ -13,6 +13,10 @@ import android.widget.Button;
 public class Onboarding1 extends AppCompatActivity implements View.OnClickListener {
 
     Button next;
+    public Onboarding1(){
+        next = new Button(this);
+        next = createButton();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,9 @@ public class Onboarding1 extends AppCompatActivity implements View.OnClickListen
                 startActivity(new Intent(getApplicationContext(), Onboarding2.class));
                 overridePendingTransition(0, 0);
         }
+    }
+    public Button createButton(){
+       return (Button) next;
     }
 
 }

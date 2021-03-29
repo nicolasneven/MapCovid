@@ -1,5 +1,7 @@
 package com.example.mapcovid;
 
+import com.google.android.gms.maps.GoogleMap;
+
 import org.junit.Test;
 
 import java.io.IOException;
@@ -12,9 +14,11 @@ import static org.junit.Assert.assertTrue;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class MarkerTest {
-
+    private GoogleMap map;
     @Test
     public void MarkerTest() throws IOException {
-        assertTrue(MapsActivity2.checkCoordinates());
+        MapsActivity2 theActivity = new MapsActivity2();
+        theActivity.setMarkers(this.map);
+        
     }
 }
