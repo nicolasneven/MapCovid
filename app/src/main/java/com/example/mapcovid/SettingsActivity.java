@@ -89,6 +89,14 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         mAnimator.start();
     }
 
+    public boolean expandTest() {
+
+        relativeLayout.setVisibility(View.VISIBLE);
+        mAnimator.start();
+
+        return true;
+    }
+
     private void collapse() {
         int finalHeight = relativeLayout.getHeight();
 
