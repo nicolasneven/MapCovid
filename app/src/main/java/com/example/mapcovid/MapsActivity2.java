@@ -22,6 +22,9 @@ import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.maps.android.data.kml.KmlLayer;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 
@@ -79,6 +82,14 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
     private String[] likelyPlaceAddresses;
     private List[] likelyPlaceAttributions;
     private LatLng[] likelyPlaceLatLngs;
+
+    //Hold Markers
+    public Marker[] markers;
+
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,25 +224,41 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
         map.moveCamera(CameraUpdateFactory.newLatLng(losangeles));
         map.setMinZoomPreference(10);
         LatLng expopark = new LatLng(34.011175,-118.28433);
-        map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing"));
+        Marker markerExpo = map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing"));
+     
+        markers[0] = markerExpo;
         LatLng universalcommunity = new LatLng(34.02738,-118.25810);
-        map.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing"));
+        Marker markerUniversal =map.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing"));
+        markers[1] = markerUniversal;
         LatLng crenshaw = new LatLng(34.02243,-118.33473);
-        map.addMarker(new MarkerOptions().position(crenshaw).title("Crenshaw Testing"));
+        Marker markerCrenshaw = map.addMarker(new MarkerOptions().position(crenshaw).title("Crenshaw Testing"));
+        markers[2] = markerCrenshaw;
         LatLng doctornow = new LatLng(34.06350,-118.37565);
-        map.addMarker(new MarkerOptions().position(doctornow).title("Doctor Now Testing"));
+        Marker markerDoctor = map.addMarker(new MarkerOptions().position(doctornow).title("Doctor Now Testing"));
+        markers[3] = markerDoctor;
         LatLng crenshawkiosk = new LatLng(33.98997,-118.32946);
-        map.addMarker(new MarkerOptions().position(crenshawkiosk).title("Crenshaw Kiosk Testing"));
+        Marker markerKiosk = map.addMarker(new MarkerOptions().position(crenshawkiosk).title("Crenshaw Kiosk Testing"));
+        markers[4] = markerKiosk;
         LatLng jwch = new LatLng(34.04338,-118.24290);
-        map.addMarker(new MarkerOptions().position(jwch).title("JWCH Institute Testing"));
+        Marker markerJWCH =map.addMarker(new MarkerOptions().position(jwch).title("JWCH Institute Testing"));
+        markers[5] = markerJWCH;
         LatLng engemann = new LatLng(34.02551,-118.28808);
-        map.addMarker(new MarkerOptions().position(engemann).title("USC Engemann Testing"));
+        Marker markerEngemann =map.addMarker(new MarkerOptions().position(engemann).title("USC Engemann Testing"));
+        markers[6] = markerEngemann;
 
         LatLng community = new LatLng(34.05608,-118.27463);
-        map.addMarker(new MarkerOptions().position(community).title("Angeles Community Testing"));
+        Marker markerCommunity =map.addMarker(new MarkerOptions().position(community).title("Angeles Community Testing"));
+        markers[7] = markerCommunity;
 
 
     }
+    public static boolean checkCoordinates() throws IOException {
+
+        return true;
+    }
+
+
+
 
     /**
      * Gets the current location of the device, and positions the map's camera.
