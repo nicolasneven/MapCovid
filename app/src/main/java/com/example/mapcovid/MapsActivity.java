@@ -150,7 +150,8 @@ public class MapsActivity extends AppCompatActivity
 
         // USC Neighborhood Polygons
         try {
-            KmlLayer layer = new KmlLayer(map, R.raw.colored, getApplicationContext());
+            //KmlLayer layer = new KmlLayer(map, R.raw.colored, getApplicationContext());
+            KmlLayer layer = readKML();
             layer.addLayerToMap();
             // Set a listener for geometry clicked events.
             layer.setOnFeatureClickListener(feature -> Toast.makeText(MapsActivity.this,
@@ -185,6 +186,11 @@ public class MapsActivity extends AppCompatActivity
         LatLng engemannn = new LatLng(34.02551,-118.28808);
         map.addMarker(new MarkerOptions().position(engemannn).title("USC Engemann Testing").snippet("Hours: Mon-Fri 9-5"));
 
+    }
+
+    public KmlLayer readKML() throws IOException, XmlPullParserException {
+        KmlLayer layer = new KmlLayer(map, R.raw.colored, getApplicationContext());
+        return layer;
     }
 
     /**
