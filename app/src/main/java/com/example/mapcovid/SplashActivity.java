@@ -36,15 +36,11 @@ public class SplashActivity extends AppCompatActivity {
         }
         else
         {
-            Log.i("onCreate: ","second time");
-            new Handler().postDelayed(new Runnable(){
-                @Override
-                public void run(){
-                    Intent homeIntent = new Intent(SplashActivity.this, MapsActivity.class);
-                    startActivity(homeIntent);
-                    finish();
-                }
-            }, SPLASH_TIME_OUT);
+            try {
+                onMaps();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
         setContentView(R.layout.splash_screen);
