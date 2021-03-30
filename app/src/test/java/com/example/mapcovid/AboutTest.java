@@ -19,15 +19,22 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AboutTest {
-    @Mock
-    SettingsActivity settingObj;
+ //   @Mock
+//    SettingsActivity settingObj;
     //Checks if the location tracking button is successfully created in the setting screen
-    @Test
-    public void aboutButtonTest(){
-        settingObj = new SettingsActivity();
-        Button a;
-        a = settingObj.createAboutButton();
-        assertNotNull(a);
+//    @Test
+//<<<<<<< Updated upstream
+ //   public void aboutButtonTest(){
+ //       settingObj = new SettingsActivity();
+  //      Button a;
+   //     a = settingObj.createAboutButton();
+   //     assertNotNull(a);
+//=======
+  //  public void aboutExpand(){
+    //    RelativeLayout relativeLayout;
+      //  ValueAnimator mAnimator;
+        //assertTrue(SettingsActivity.expandTest());
+//>>>>>>> Stashed changes
     }
 
-}
+//}

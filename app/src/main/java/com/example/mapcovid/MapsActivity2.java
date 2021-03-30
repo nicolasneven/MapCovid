@@ -220,17 +220,11 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
         }
 
         // Testing Locations
-        setMarkers(map);
-
-
-    }
-    public void setMarkers(GoogleMap map) {
         LatLng losangeles = new LatLng(34.05, -118.24);
         map.moveCamera(CameraUpdateFactory.newLatLng(losangeles));
         map.setMinZoomPreference(10);
         LatLng expopark = new LatLng(34.011175,-118.28433);
         Marker markerExpo = map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing"));
-
         markers[0] = markerExpo;
         LatLng universalcommunity = new LatLng(34.02738,-118.25810);
         Marker markerUniversal =map.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing"));
@@ -255,7 +249,18 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
         Marker markerCommunity =map.addMarker(new MarkerOptions().position(community).title("Angeles Community Testing"));
         markers[7] = markerCommunity;
 
+
+
     }
+    public double getMarkers(LatLng coordinates){
+        LatLng marker = coordinates;
+        double longitude = coordinates.longitude;
+        //double[] product = new double[]{latitude, longitude};
+        return longitude;
+
+    }
+
+
 
 
 
