@@ -93,10 +93,6 @@ public class MapsActivity extends AppCompatActivity
         setContentView(R.layout.activity_maps);
         navView = findViewById(R.id.bottom_navigation);
 
-
-
-
-
         /*
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), "AIzaSyDdvVgxr1ImjzYJxDTBJzkMhyhn7Uo5Ye8");
