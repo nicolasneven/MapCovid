@@ -21,9 +21,9 @@ public class MapRegionsTest {
             = new ActivityScenarioRule<>(MapsActivity.class);
 
     @Test
-    public void loadMap() throws InterruptedException {
+    public void mapRegions() throws InterruptedException {
         onView(withId(R.id.map));
-        Thread.sleep(100000);
+        Thread.sleep(10000);
     }
     //If a location permissions popup appears, then grant permission
     //Manually click on the blue region
