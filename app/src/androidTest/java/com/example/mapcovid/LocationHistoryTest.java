@@ -17,18 +17,16 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class MapTest {
+public class LocationHistoryTest {
     @Rule public ActivityScenarioRule<MapsActivity> activityScenarioRule
             = new ActivityScenarioRule<>(MapsActivity.class);
 
     //Test whether the app changes to the subsequent onboarding screen after user hits next button
     @Test
-    public void loadMap() throws InterruptedException {
-        for (int i = 0; i < 20; i++) {
-            onView(withId(R.id.map));
-            Thread.sleep(1000);
-            System.out.println(i);
-        }
+    public void switchView() throws InterruptedException {
+        onView(withId(R.id.map));
+        onView(withId(R.id.historyicon)).perform(click());
+        Thread.sleep(1000);
     }
 }
 

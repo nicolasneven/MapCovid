@@ -35,6 +35,5 @@ public class SplashActivityTest {
         splash = new SplashActivity();
         boolean s = splash.onMaps();
         assertTrue(s);
-
     }
 }
