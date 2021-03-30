@@ -21,6 +21,7 @@ public class regTest{
     @Test
     public void myTest() {
         ActivityScenario scenario = rule.getScenario();
+        scenario.onActivity()
         // Your test code goes here.
     }
 
