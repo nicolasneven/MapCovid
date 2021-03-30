@@ -25,7 +25,6 @@ public class MapRegionsTest {
         for (int i = 0; i < 20; i++) {
             onView(withId(R.id.map)).perform();
             Thread.sleep(1000);
-            System.out.println(i);
         }
     }
     //Manually grant location permissions
