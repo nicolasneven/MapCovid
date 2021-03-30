@@ -26,7 +26,7 @@ public class MapCenterTest {
         Thread.sleep(10000);
     }
     //If a location permissions popup appears, then grant permission
-    //Manually click on center on location botton on the top right
+    //Manually click on center on location button on the top right
     //The screen should shift to the user's current location represented by a blue circle
 }
 

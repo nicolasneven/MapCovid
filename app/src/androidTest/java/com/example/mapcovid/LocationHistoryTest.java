@@ -21,7 +21,7 @@ public class LocationHistoryTest {
     @Rule public ActivityScenarioRule<MapsActivity> activityScenarioRule
             = new ActivityScenarioRule<>(MapsActivity.class);
 
-    //Test whether the app changes to the subsequent onboarding screen after user hits next button
+    // Loads the map into view then navigates to the location history screen/activity
     @Test
     public void switchView() throws InterruptedException {
         onView(withId(R.id.map));
