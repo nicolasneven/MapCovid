@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
 public class NoLocationMapAccessTest {
 
     @Test
-    public void noLocationMapAccessTest() {
+    public void MapAccessTest() {
         //test to see if the map opens up on a location even if location pref is off
         //can test by using default location
         String location = MapsActivity.getDefaultLocation();
