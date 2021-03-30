@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SettingTest {
+
     @Mock
     SettingsActivity settingObj;
     //Checks if the location tracking button is successfully created in the setting screen

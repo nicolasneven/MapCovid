@@ -25,15 +25,17 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
     Button viewmore;
     ValueAnimator mAnimator;
 
+    /*
     Button location;
     Button notification;
+    Button about;
     public SettingsActivity(){
         location = new Button(this);
         location = createLocationButton();
         notification = new Button(this);
         notification = createNotificationButton();
-        viewmore = new Button(this);
-        viewmore = createNotificationButton();
+        about = new Button(this);
+        about = createNotificationButton();
     }
 
     public Button createLocationButton(){
@@ -43,8 +45,9 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         return (Button) notification;
     }
     public Button createAboutButton(){
-        return (Button) viewmore;
+        return (Button) about;
     }
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
