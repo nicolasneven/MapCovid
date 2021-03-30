@@ -48,7 +48,8 @@ public class MapTest {
     @Test
     public void onMyLocationTest(){
         mapsObj = new MapsActivity();
-        assertNotNull(MapsActivity.onMyLocationButtonClick());
+        boolean test = mapsObj.onMyLocationButtonClick();
+        assertFalse(test);
     }
 
 }
