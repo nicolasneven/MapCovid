@@ -21,13 +21,11 @@ public class MapCenterTest {
             = new ActivityScenarioRule<>(MapsActivity.class);
 
     @Test
-    public void loadMap() throws InterruptedException {
-        for (int i = 0; i < 20; i++) {
-            onView(withId(R.id.map)).perform();
-            Thread.sleep(10000);
-        }
+    public void centerLocation() throws InterruptedException {
+        onView(withId(R.id.map));
+        Thread.sleep(10000);
     }
-    //Manually grant location permissions
+    //If a location permissions popup appears, then grant permission
     //Manually click on center on location botton on the top right
     //The screen should shift to the user's current location represented by a blue circle
 }

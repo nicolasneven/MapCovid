@@ -16,20 +16,19 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class MapRegionsTest {
+public class TestingCenterTest {
     @Rule public ActivityScenarioRule<MapsActivity> activityScenarioRule
             = new ActivityScenarioRule<>(MapsActivity.class);
 
     @Test
-    public void mapRegions() throws InterruptedException {
-        onView(withId(R.id.map));
-        Thread.sleep(10000);
+    public void ViewPopUpPin() throws InterruptedException {
+
+        onView(withId(R.id.map)).perform();
+        Thread.sleep(20000);
+
     }
-    //If a location permissions popup appears, then grant permission
-    //Manually click on the blue region
-    //A pop-up should appear on the bottom with the following text
-    //University Park
-    //Cases: 3395
-    //Deaths: 51
+    //Manually move map to see a Testing Location pin
+    //Manually click on the pin
+    //A pop up should appear from the pin that shows the Testing Center name and its hours
 }
 
