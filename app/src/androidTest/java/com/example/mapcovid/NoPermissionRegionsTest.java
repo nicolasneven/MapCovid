@@ -21,7 +21,7 @@ public class NoPermissionRegionsTest {
             = new ActivityScenarioRule<>(MapsActivity.class);
 
     @Test
-    public void mapRegions() throws InterruptedException {
+    public void mapRegionsNoLocationAccess() throws InterruptedException {
         onView(withId(R.id.map));
         Thread.sleep(10000);
     }
