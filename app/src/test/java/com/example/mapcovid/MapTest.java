@@ -25,6 +25,8 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MapTest {
+
+    /*
     @Mock
     MapsActivity mapsObj;
     //Checks if the location tracking button is successfully created in the setting screen
@@ -34,6 +36,19 @@ public class MapTest {
         KmlLayer testLayer;
         testLayer = mapsObj.readKML();
         assertNotNull(testLayer);
+    }
+     */
+    @Test
+    public void tagsTest(){
+        assertNotNull(MapsActivity.getTag());
+    }
+
+    @Mock
+    MapsActivity mapsObj;
+    @Test
+    public void onMyLocationTest(){
+        mapsObj = new MapsActivity();
+        assertNotNull(MapsActivity.onMyLocationButtonClick());
     }
 
 }
