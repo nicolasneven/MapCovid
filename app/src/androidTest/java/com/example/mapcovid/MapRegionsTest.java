@@ -22,12 +22,10 @@ public class MapRegionsTest {
 
     @Test
     public void loadMap() throws InterruptedException {
-        for (int i = 0; i < 20; i++) {
-            onView(withId(R.id.map)).perform();
-            Thread.sleep(1000);
-        }
+        onView(withId(R.id.map));
+        Thread.sleep(100000);
     }
-    //Manually grant location permissions
+    //If a location permissions popup appears, then grant permission
     //Manually click on the blue region
     //A pop-up should appear on the bottom with the following text
     //University Park
