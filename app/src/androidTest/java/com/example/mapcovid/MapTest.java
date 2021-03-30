@@ -25,7 +25,7 @@ public class MapTest {
     @Test
     public void loadMap() throws InterruptedException {
         for (int i = 0; i < 20; i++) {
-            onView(withId(R.id.map)).perform();
+            onView(withId(R.id.map));
             Thread.sleep(1000);
             System.out.println(i);
         }

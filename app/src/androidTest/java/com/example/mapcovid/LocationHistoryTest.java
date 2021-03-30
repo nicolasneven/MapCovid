@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 /**
@@ -16,23 +17,16 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class MapRegionsTest {
+public class LocationHistoryTest {
     @Rule public ActivityScenarioRule<MapsActivity> activityScenarioRule
             = new ActivityScenarioRule<>(MapsActivity.class);
 
+    //Test whether the app changes to the subsequent onboarding screen after user hits next button
     @Test
-    public void loadMap() throws InterruptedException {
-        for (int i = 0; i < 20; i++) {
-            onView(withId(R.id.map)).perform();
-            Thread.sleep(1000);
-            System.out.println(i);
-        }
+    public void switchView() throws InterruptedException {
+        onView(withId(R.id.map));
+        onView(withId(R.id.historyicon)).perform(click());
+        Thread.sleep(1000);
     }
-    //Manually grant location permissions
-    //Manually click on the blue region
-    //A pop-up should appear on the bottom with the following text
-    //University Park
-    //Cases: 3395
-    //Deaths: 51
 }
 
