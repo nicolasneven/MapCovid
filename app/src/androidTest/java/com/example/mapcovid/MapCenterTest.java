@@ -28,10 +28,8 @@ public class MapCenterTest {
             System.out.println(i);
         }
     }
-    //Manually click on the blue region
-    //A pop-up should appear on the bottom with the following text
-    //University Park
-    //Cases: 3395
-    //Deaths: 51
+    //Manually grant location permissions
+    //Manually click on center on location botton on the top right
+    //The screen should shift to the user's current location represented by a blue circle
 }
 

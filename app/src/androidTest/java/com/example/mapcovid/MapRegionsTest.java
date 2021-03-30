@@ -28,5 +28,11 @@ public class MapRegionsTest {
             System.out.println(i);
         }
     }
+    //Manually grant location permissions
+    //Manually click on the blue region
+    //A pop-up should appear on the bottom with the following text
+    //University Park
+    //Cases: 3395
+    //Deaths: 51
 }
 
