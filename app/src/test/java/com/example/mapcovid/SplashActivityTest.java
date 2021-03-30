@@ -26,15 +26,7 @@ public class SplashActivityTest {
 
         splash = new SplashActivity();
         boolean s = splash.onBoard();
-
-        SharedPreferences pref = splash.getSharedPreferences("pref",0);
-        boolean firstRun = pref.getBoolean("firstRun", true);
-        if (firstRun){
-            assertTrue(s);
-        }
-        else{
-            assertFalse(s);
-        }
+        assertTrue(s);
     }
 
     //test whether this shows up before the maps
@@ -42,14 +34,7 @@ public class SplashActivityTest {
     public void testTime() throws IOException{
         splash = new SplashActivity();
         boolean s = splash.onMaps();
+        assertTrue(s);
 
-        SharedPreferences pref = splash.getSharedPreferences("pref",0);
-        boolean firstRun = pref.getBoolean("firstRun", false);
-        if (firstRun){
-            assertTrue(s);
-        }
-        else{
-            assertFalse(s);
-        }
     }
 }

@@ -25,6 +25,10 @@ public class SplashActivity extends AppCompatActivity {
         if(firstRun)
         {
             try {
+                SharedPreferences.Editor editor= pref.edit();
+                Log.i("onCreate: ","first time" );
+                editor.putBoolean("firstRun",false);
+                editor.commit();
                 onBoard();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -48,11 +52,6 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public boolean onBoard() throws IOException {
-        SharedPreferences pref = SplashActivity.this.getSharedPreferences("pref", 0);
-        SharedPreferences.Editor editor= pref.edit();
-        Log.i("onCreate: ","first time" );
-        editor.putBoolean("firstRun",false);
-        editor.commit();
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run(){
