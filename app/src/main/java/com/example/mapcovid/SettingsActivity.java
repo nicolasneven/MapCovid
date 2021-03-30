@@ -48,6 +48,23 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         return (Button) about;
     }
     */
+    Button location;
+    public Button createLocationButton(){
+        location = new Button(this);
+        return (Button) location;
+    }
+
+    Button notification;
+    public Button createNotificationButton(){
+        notification = new Button(this);
+        return (Button) notification;
+    }
+
+    Button about;
+    public Button createAboutButton(){
+        about = new Button(this);
+        return (Button) about;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
