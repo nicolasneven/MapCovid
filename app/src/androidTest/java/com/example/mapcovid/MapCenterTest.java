@@ -25,7 +25,6 @@ public class MapCenterTest {
         for (int i = 0; i < 20; i++) {
             onView(withId(R.id.map)).perform();
             Thread.sleep(10000);
-            System.out.println(i);
         }
     }
     //Manually grant location permissions
