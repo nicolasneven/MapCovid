@@ -53,6 +53,9 @@ public class MarkerTest  {
     @Test
     public void MarkerTest() throws IOException {
 
+        LatLng universalcommunity = new LatLng(34.02738,-118.25810);
+        assertNotNull(universalcommunity);
+
 
        // markers = theActivity.getMarkers();
         //assertTrue(theActivity.setMarkers(markers));
@@ -90,11 +93,13 @@ public class MarkerTest  {
         //LatLng community = new LatLng(34.05608,-118.27463);
       //  Marker markerCommunity =map2.addMarker(new MarkerOptions().position(community).title("Angeles Community Testing"));
       //  markers[7] = markerCommunity;
+
+    }
+    @Test
+    public void LatitudeTest() throws IOException {
+        theActivity = new MapsActivity2();
         LatLng universalcommunity = new LatLng(34.02738,-118.25810);
-        double latitude = universalcommunity.latitude;
-        double longitude = universalcommunity.latitude;
-        assertNotNull(universalcommunity);
-
-
+        double longitude = theActivity.getMarkers(universalcommunity);
+        assertTrue(longitude == universalcommunity.longitude);
     }
 }

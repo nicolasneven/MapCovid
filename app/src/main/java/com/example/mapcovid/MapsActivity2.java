@@ -253,10 +253,10 @@ public class MapsActivity2 extends AppCompatActivity implements OnMapReadyCallba
 
     }
     public double getMarkers(LatLng coordinates){
-        double latitude = coordinates.latitude;
-        //double longitude = coordinates.longitude;
+        LatLng marker = coordinates;
+        double longitude = coordinates.longitude;
         //double[] product = new double[]{latitude, longitude};
-        return latitude;
+        return longitude;
 
     }
 
