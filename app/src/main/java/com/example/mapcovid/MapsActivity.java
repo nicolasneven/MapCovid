@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.content.ContextWrapper;
 import android.content.Context;
 import androidx.core.content.FileProvider;
+import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -41,6 +42,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
@@ -149,6 +151,7 @@ public class MapsActivity extends AppCompatActivity
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Bitmap bit = takeScreenshot();
                 saveBitmap(bit);
                 shareScreen();
@@ -349,13 +352,15 @@ public class MapsActivity extends AppCompatActivity
     public Bitmap takeScreenshot() {
         View rootView = findViewById(android.R.id.content).getRootView();
         rootView.setDrawingCacheEnabled(true);
+        rootView.buildDrawingCache();
         return rootView.getDrawingCache();
     }
     public void saveBitmap(Bitmap bitmap) {
        // ContextWrapper cw = new ContextWrapper(getApplicationContext());
         //File temp = cw.getDir("imageDir", Context.MODE_PRIVATE);
         //imagePath = new File(temp, "UniqueFileName" + ".jpg");
-        imagePath = new File(Environment.getExternalStorageDirectory() + "/scrnshot.png");
+        //imagePath = new File(Environment.getExternalStorageDirectory() + "/scrnshot.png");
+        imagePath = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "screenshot.png");
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(imagePath);
@@ -369,11 +374,12 @@ public class MapsActivity extends AppCompatActivity
         }
     }
     public void shareScreen() {
-        Uri uri = FileProvider.getUriForFile(
-                MapsActivity.this,
-                "com.example.mapcovid.provider", //(use your app signature + ".provider" )
-                imagePath);
-        //Uri uri = Uri.fromFile(imagePath);
+            Uri uri = FileProvider.getUriForFile(
+                    MapsActivity.this,
+                    "com.example.mapcovid.provider", //(use your app signature + ".provider" )
+                    imagePath);
+            //Uri uri = Uri.fromFile(imagePath);
+
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("image/*");
         String shareBody = "Take a look at this LA Covid Map provided by MapCovid!";

@@ -51,6 +51,17 @@
             android:textColor="@color/white"
             android:textSize="20dp" />
 
+        <Switch
+            android:id="@+id/switch3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dark Mode"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
         <Button
             android:id="@+id/clearall"
             android:layout_width="match_parent"

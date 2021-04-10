@@ -9,6 +9,7 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -28,6 +30,7 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
     RelativeLayout relativeLayout;
     Button viewmore;
     ValueAnimator mAnimator;
+    private Button toggleDark;
 
     /*
     Button location;
@@ -108,6 +111,15 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         viewmore = (Button) findViewById(R.id.viewmore);
 
         viewmore.setOnClickListener((View.OnClickListener) this);
+
+        toggleDark = (Button) findViewById(R.id.switch3);
+        toggleDark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+        });
 
         relativeLayout.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
