@@ -9,6 +9,7 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatDelegate;
+import android.widget.Switch;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -30,7 +32,9 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
     RelativeLayout relativeLayout;
     Button viewmore;
     ValueAnimator mAnimator;
-    private Button toggleDark;
+    private Switch toggleDark;
+    public boolean isDark = false;
+
 
     /*
     Button location;
@@ -82,6 +86,7 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
+
         navView.setSelectedItemId(R.id.settingsicon);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -112,12 +117,28 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
 
         viewmore.setOnClickListener((View.OnClickListener) this);
 
-        toggleDark = (Button) findViewById(R.id.switch3);
+
+        toggleDark = (Switch) findViewById(R.id.switch3);
+        toggleDark.toggle();
+
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        boolean tgpref = preferences.getBoolean("tgpref", true);  //default is false
+        toggleDark.setChecked(tgpref);
+
         toggleDark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //toggleDark.toggle();
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("tgpref", toggleDark.isChecked()); // value to store
+                editor.commit();
+                //toggleDark.setChecked(tgpref);
 
+                if(toggleDark.isChecked())
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                else
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
         });
 
