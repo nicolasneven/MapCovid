@@ -27,6 +27,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -89,6 +90,7 @@ public class MapsActivity extends AppCompatActivity
     private CameraPosition cameraPosition;
     private File imagePath;
     private FloatingActionButton share;
+    private Marker expo;
 
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -194,7 +196,7 @@ public class MapsActivity extends AppCompatActivity
         map.moveCamera(CameraUpdateFactory.newLatLng(usc));
         map.setMinZoomPreference(14);
         LatLng expopark = new LatLng(34.011175,-118.28433);
-        map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
+        expo = map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng universalcommunity = new LatLng(34.02738,-118.25810);
         map.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng crenshaw = new LatLng(34.02243,-118.33473);
@@ -208,9 +210,17 @@ public class MapsActivity extends AppCompatActivity
         LatLng engemann = new LatLng(34.02551,-118.28808);
         map.addMarker(new MarkerOptions().position(engemann).title("USC Engemann Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng community = new LatLng(34.05608,-118.27463);
-        map.addMarker(new MarkerOptions().position(community).title("Angeles Community Testing").snippet("Hours: Mon-Fri 9-5"));
+        map.addMarker(new MarkerOptions().position(community).title("Angeles Community Testing").snippet("Hours: Mon-Fri 9-5 https://www.angelescommunity.org"));
         LatLng engemannn = new LatLng(34.02551,-118.28808);
         map.addMarker(new MarkerOptions().position(engemannn).title("USC Engemann Testing").snippet("Hours: Mon-Fri 9-5"));
+
+
+        //check how far the user is
+        float[] distance = new float[2];
+        Location.distanceBetween(expo.getPosition().latitude, expo.getPosition().longitude, lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), distance);
+        if (distance[0] > 96560){
+            Toast.makeText(MapsActivity.this, "WARNING: You are out of the Los Angeles area. Functionality may not work as well.", Toast.LENGTH_LONG).show();
+        }
 
     }
 
