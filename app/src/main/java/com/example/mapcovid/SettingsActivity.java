@@ -1,6 +1,7 @@
 package com.example.mapcovid;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -15,19 +16,21 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatDelegate;
+import android.widget.Switch;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -38,7 +41,9 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
     RelativeLayout relativeLayout;
     Button viewmore;
     ValueAnimator mAnimator;
-    private Button toggleDark;
+    private Switch toggleDark;
+    public boolean isDark = false;
+
 
     /* Following code was used for white box tests
     Button location;
@@ -91,6 +96,7 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
+
         navView.setSelectedItemId(R.id.settingsicon);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -121,12 +127,34 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
 
         viewmore.setOnClickListener((View.OnClickListener) this);
 
-        toggleDark = (Button) findViewById(R.id.switch3);
+
+        toggleDark = (Switch) findViewById(R.id.switch3);
+        toggleDark.toggle();
+
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        WebView twitter = (WebView) findViewById(R.id.timeline_webview);
+        boolean tgpref = preferences.getBoolean("tgpref", true);  //default is false
+        toggleDark.setChecked(tgpref);
+
         toggleDark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //toggleDark.toggle();
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("tgpref", toggleDark.isChecked()); // value to store
+                editor.commit();
+                //toggleDark.setChecked(tgpref);
 
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                if(toggleDark.isChecked()) {
+                    isDark = true;
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+                }
+                else {
+                    isDark = false;
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
             }
         });
 
@@ -320,24 +348,7 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
 
         }
     }
-
-    private void createNotificationChannel(String channel_id) {
-
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Notification Channel";
-            String description = "Channel for Notifications";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            //String channel_id = "234";
-            NotificationChannel channel = new NotificationChannel(channel_id, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+    public boolean getDark(){
+        return isDark;
     }
-
-
 }

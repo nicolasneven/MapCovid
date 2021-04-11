@@ -16,7 +16,10 @@ import android.net.Uri;
 import android.widget.Button;
 import android.content.ContextWrapper;
 import android.content.Context;
+
 import androidx.core.content.FileProvider;
+
+import com.google.android.datatransport.runtime.logging.Logging;
 import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -27,8 +30,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -59,6 +64,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.widget.Toast;
 
 import android.view.View;
@@ -89,6 +95,8 @@ public class MapsActivity extends AppCompatActivity
     private CameraPosition cameraPosition;
     private File imagePath;
     private FloatingActionButton share;
+    private Marker expo;
+    private FusedLocationProviderClient fusedLocationClient;
 
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -101,6 +109,7 @@ public class MapsActivity extends AppCompatActivity
 
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
+    private Task<Location> lastKnownLocation2;
     private Location lastKnownLocation;
     private static int SPLASH_TIME_OUT = 4000;
     private BottomNavigationView navView;
@@ -126,7 +135,7 @@ public class MapsActivity extends AppCompatActivity
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 //Toast.makeText(MapsActivity.this, ""+item.getTitle(), Toast.LENGTH_SHORT).show();
                 //return true;
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.mapicon:
                         return true;
                     case R.id.mediaicon:
@@ -145,6 +154,10 @@ public class MapsActivity extends AppCompatActivity
                 return false;
             }
         });
+
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
 
         //Share button
         share = (FloatingActionButton) findViewById(R.id.shareButton);
@@ -193,24 +206,58 @@ public class MapsActivity extends AppCompatActivity
         LatLng usc = new LatLng(34.02024, -118.28083);
         map.moveCamera(CameraUpdateFactory.newLatLng(usc));
         map.setMinZoomPreference(14);
-        LatLng expopark = new LatLng(34.011175,-118.28433);
-        map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
-        LatLng universalcommunity = new LatLng(34.02738,-118.25810);
+        LatLng expopark = new LatLng(34.011175, -118.28433);
+        expo = map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
+        LatLng universalcommunity = new LatLng(34.02738, -118.25810);
         map.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing").snippet("Hours: Mon-Fri 9-5"));
-        LatLng crenshaw = new LatLng(34.02243,-118.33473);
+        LatLng crenshaw = new LatLng(34.02243, -118.33473);
         map.addMarker(new MarkerOptions().position(crenshaw).title("Crenshaw Testing").snippet("Hours: Mon-Fri 9-5"));
-        LatLng doctornow = new LatLng(34.06350,-118.37565);
+        LatLng doctornow = new LatLng(34.06350, -118.37565);
         map.addMarker(new MarkerOptions().position(doctornow).title("Doctor Now Testing").snippet("Hours: Mon-Fri 9-5"));
-        LatLng crenshawkiosk = new LatLng(33.98997,-118.32946);
+        LatLng crenshawkiosk = new LatLng(33.98997, -118.32946);
         map.addMarker(new MarkerOptions().position(crenshawkiosk).title("Crenshaw Kiosk Testing").snippet("Hours: Mon-Fri 9-5"));
-        LatLng jwch = new LatLng(34.04338,-118.24290);
+        LatLng jwch = new LatLng(34.04338, -118.24290);
         map.addMarker(new MarkerOptions().position(jwch).title("JWCH Institute Testing").snippet("Hours: Mon-Fri 9-5"));
-        LatLng engemann = new LatLng(34.02551,-118.28808);
+        LatLng engemann = new LatLng(34.02551, -118.28808);
         map.addMarker(new MarkerOptions().position(engemann).title("USC Engemann Testing").snippet("Hours: Mon-Fri 9-5"));
-        LatLng community = new LatLng(34.05608,-118.27463);
-        map.addMarker(new MarkerOptions().position(community).title("Angeles Community Testing").snippet("Hours: Mon-Fri 9-5"));
-        LatLng engemannn = new LatLng(34.02551,-118.28808);
+        LatLng community = new LatLng(34.05608, -118.27463);
+        map.addMarker(new MarkerOptions().position(community).title("Angeles Community Testing").snippet("Hours: Mon-Fri 9-5 https://www.angelescommunity.org"));
+        LatLng engemannn = new LatLng(34.02551, -118.28808);
         map.addMarker(new MarkerOptions().position(engemannn).title("USC Engemann Testing").snippet("Hours: Mon-Fri 9-5"));
+
+
+        //check how far the user is
+        float[] distance = new float[2];
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        lastKnownLocation2 = fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                        }
+                    }
+                });
+        try {
+            lastKnownLocation = lastKnownLocation2.getResult();
+        }catch(IllegalStateException exception){
+            return;
+        }
+        
+        Location.distanceBetween(expo.getPosition().latitude, expo.getPosition().longitude, lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), distance);
+        if (distance[0] > 96560){
+            Toast.makeText(MapsActivity.this, "WARNING: You are out of the Los Angeles area. Functionality may not work as well.", Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -329,6 +376,7 @@ public class MapsActivity extends AppCompatActivity
                             map.getUiSettings().setMyLocationButtonEnabled(false);
                         }
                     }
+
                 });
             }
         } catch (SecurityException e) {

@@ -49,7 +49,7 @@ public class MarkerTest  {
     MapsActivity2 theActivity;
 
 
-
+    //check to see if latitude longitude is working correctly
     @Test
     public void MarkerTest() throws IOException {
 
@@ -95,6 +95,7 @@ public class MarkerTest  {
       //  markers[7] = markerCommunity;
 
     }
+    //checks to see if longitude works correctly within the code
     @Test
     public void LatitudeTest() throws IOException {
         theActivity = new MapsActivity2();
