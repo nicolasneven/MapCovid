@@ -287,7 +287,7 @@ public class MapsActivity extends AppCompatActivity
         }catch(IllegalStateException exception){
             return;
         }
-        
+
         Location.distanceBetween(expo.getPosition().latitude, expo.getPosition().longitude, lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), distance);
         if (distance[0] > 96560){
             Toast.makeText(MapsActivity.this, "WARNING: You are out of the Los Angeles area. Functionality may not work as well.", Toast.LENGTH_LONG).show();
@@ -487,5 +487,13 @@ public class MapsActivity extends AppCompatActivity
 
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
+<<<<<<< Updated upstream
 
+=======
+    public void sendMessage(View view) {
+        LatLng usc = new LatLng(34.02024, -118.28083);
+        map.moveCamera(CameraUpdateFactory.newLatLng(usc));
+        map.setMinZoomPreference(14);
+    }
+>>>>>>> Stashed changes
 }
