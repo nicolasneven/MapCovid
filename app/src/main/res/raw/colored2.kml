@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://www.opengis.net/kml/2.2">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
     <name>map.kml</name>
     <Style id="poly-0097A7-2000-76-normal">
@@ -203,10 +202,10 @@
           <value/>
         </Data>
         <Data name="cases">
-          <value>1166</value>
+          <value>1179</value>
         </Data>
         <Data name="deaths">
-          <value>20</value>
+          <value>18</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -233,10 +232,10 @@
           <value/>
         </Data>
         <Data name="cases">
-          <value>6059</value>
+          <value>6149</value>
         </Data>
         <Data name="deaths">
-          <value>82</value>
+          <value>83</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -268,10 +267,10 @@
           <value/>
         </Data>
         <Data name="cases">
-          <value>2250</value>
+          <value>2574</value>
         </Data>
         <Data name="deaths">
-          <value>66</value>
+          <value>68</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -302,10 +301,10 @@
           <value/>
         </Data>
         <Data name="cases">
-          <value>1148</value>
+          <value>1160</value>
         </Data>
         <Data name="deaths">
-          <value>12</value>
+          <value>13</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -335,10 +334,10 @@
           <value/>
         </Data>
         <Data name="cases">
-          <value>6993</value>
+          <value>7054</value>
         </Data>
         <Data name="deaths">
-          <value>212</value>
+          <value>228</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -378,10 +377,10 @@
           <value/>
         </Data>
         <Data name="cases">
-          <value>3395</value>
+          <value>3515</value>
         </Data>
         <Data name="deaths">
-          <value>51</value>
+          <value>55</value>
         </Data>
       </ExtendedData>
       <Polygon>

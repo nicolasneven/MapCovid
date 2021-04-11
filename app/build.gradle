@@ -60,9 +60,9 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:1.10.19'
     androidTestImplementation 'androidx.test.espresso:espresso-web:3.1.0'
 
-
     // jsoup HTML parser library @ https://jsoup.org/
     implementation 'org.jsoup:jsoup:1.13.1'
+    // implementation 'info.guardianproject.netcipher:netcipher:2.1.0'
 
     // Google Maps utility library
     implementation 'com.google.maps.android:maps-utils-ktx:2.4.0'

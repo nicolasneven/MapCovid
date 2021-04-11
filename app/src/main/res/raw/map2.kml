@@ -1,39 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
-    <name>map.kml</name>
-    <Style id="poly-0097A7-2000-76-normal">
-      <LineStyle>
-        <color>ffa79700</color>
-        <width>2</width>
-      </LineStyle>
-      <PolyStyle>
-        <color>4ca79700</color>
-        <fill>1</fill>
-        <outline>1</outline>
-      </PolyStyle>
-    </Style>
-    <Style id="poly-0097A7-2000-76-highlight">
-      <LineStyle>
-        <color>ffa79700</color>
-        <width>3</width>
-      </LineStyle>
-      <PolyStyle>
-        <color>4ca79700</color>
-        <fill>1</fill>
-        <outline>1</outline>
-      </PolyStyle>
-    </Style>
-    <StyleMap id="poly-0097A7-2000-76">
-      <Pair>
-        <key>normal</key>
-        <styleUrl>#poly-0097A7-2000-76-normal</styleUrl>
-      </Pair>
-      <Pair>
-        <key>highlight</key>
-        <styleUrl>#poly-0097A7-2000-76-highlight</styleUrl>
-      </Pair>
-    </StyleMap>
+    <name>map2</name>
     <Style id="poly-0288D1-2000-76-normal">
       <LineStyle>
         <color>ffd18802</color>
@@ -66,147 +34,115 @@
         <styleUrl>#poly-0288D1-2000-76-highlight</styleUrl>
       </Pair>
     </StyleMap>
-    <Style id="poly-4E342E-2000-76-normal">
+    <Style id="poly-7CB342-2000-76-normal">
       <LineStyle>
-        <color>ff2e344e</color>
+        <color>ff42b37c</color>
         <width>2</width>
       </LineStyle>
       <PolyStyle>
-        <color>4c2e344e</color>
+        <color>4c42b37c</color>
         <fill>1</fill>
         <outline>1</outline>
       </PolyStyle>
     </Style>
-    <Style id="poly-4E342E-2000-76-highlight">
+    <Style id="poly-7CB342-2000-76-highlight">
       <LineStyle>
-        <color>ff2e344e</color>
+        <color>ff42b37c</color>
         <width>3</width>
       </LineStyle>
       <PolyStyle>
-        <color>4c2e344e</color>
+        <color>4c42b37c</color>
         <fill>1</fill>
         <outline>1</outline>
       </PolyStyle>
     </Style>
-    <StyleMap id="poly-4E342E-2000-76">
+    <StyleMap id="poly-7CB342-2000-76">
       <Pair>
         <key>normal</key>
-        <styleUrl>#poly-4E342E-2000-76-normal</styleUrl>
+        <styleUrl>#poly-7CB342-2000-76-normal</styleUrl>
       </Pair>
       <Pair>
         <key>highlight</key>
-        <styleUrl>#poly-4E342E-2000-76-highlight</styleUrl>
+        <styleUrl>#poly-7CB342-2000-76-highlight</styleUrl>
       </Pair>
     </StyleMap>
-    <Style id="poly-C2185B-2000-76-normal">
+    <Style id="poly-FF5252-2000-76-normal">
       <LineStyle>
-        <color>ff5b18c2</color>
+        <color>ff5252ff</color>
         <width>2</width>
       </LineStyle>
       <PolyStyle>
-        <color>4c5b18c2</color>
+        <color>4c5252ff</color>
         <fill>1</fill>
         <outline>1</outline>
       </PolyStyle>
     </Style>
-    <Style id="poly-C2185B-2000-76-highlight">
+    <Style id="poly-FF5252-2000-76-highlight">
       <LineStyle>
-        <color>ff5b18c2</color>
+        <color>ff5252ff</color>
         <width>3</width>
       </LineStyle>
       <PolyStyle>
-        <color>4c5b18c2</color>
+        <color>4c5252ff</color>
         <fill>1</fill>
         <outline>1</outline>
       </PolyStyle>
     </Style>
-    <StyleMap id="poly-C2185B-2000-76">
+    <StyleMap id="poly-FF5252-2000-76">
       <Pair>
         <key>normal</key>
-        <styleUrl>#poly-C2185B-2000-76-normal</styleUrl>
+        <styleUrl>#poly-FF5252-2000-76-normal</styleUrl>
       </Pair>
       <Pair>
         <key>highlight</key>
-        <styleUrl>#poly-C2185B-2000-76-highlight</styleUrl>
+        <styleUrl>#poly-FF5252-2000-76-highlight</styleUrl>
       </Pair>
     </StyleMap>
-    <Style id="poly-F57C00-2000-76-normal">
+    <Style id="poly-FFEA00-2000-76-normal">
       <LineStyle>
-        <color>ff007cf5</color>
+        <color>ff00eaff</color>
         <width>2</width>
       </LineStyle>
       <PolyStyle>
-        <color>4c007cf5</color>
+        <color>4c00eaff</color>
         <fill>1</fill>
         <outline>1</outline>
       </PolyStyle>
     </Style>
-    <Style id="poly-F57C00-2000-76-highlight">
+    <Style id="poly-FFEA00-2000-76-highlight">
       <LineStyle>
-        <color>ff007cf5</color>
+        <color>ff00eaff</color>
         <width>3</width>
       </LineStyle>
       <PolyStyle>
-        <color>4c007cf5</color>
+        <color>4c00eaff</color>
         <fill>1</fill>
         <outline>1</outline>
       </PolyStyle>
     </Style>
-    <StyleMap id="poly-F57C00-2000-76">
+    <StyleMap id="poly-FFEA00-2000-76">
       <Pair>
         <key>normal</key>
-        <styleUrl>#poly-F57C00-2000-76-normal</styleUrl>
+        <styleUrl>#poly-FFEA00-2000-76-normal</styleUrl>
       </Pair>
       <Pair>
         <key>highlight</key>
-        <styleUrl>#poly-F57C00-2000-76-highlight</styleUrl>
-      </Pair>
-    </StyleMap>
-    <Style id="poly-FBC02D-2000-76-normal">
-      <LineStyle>
-        <color>ff2dc0fb</color>
-        <width>2</width>
-      </LineStyle>
-      <PolyStyle>
-        <color>4c2dc0fb</color>
-        <fill>1</fill>
-        <outline>1</outline>
-      </PolyStyle>
-    </Style>
-    <Style id="poly-FBC02D-2000-76-highlight">
-      <LineStyle>
-        <color>ff2dc0fb</color>
-        <width>3</width>
-      </LineStyle>
-      <PolyStyle>
-        <color>4c2dc0fb</color>
-        <fill>1</fill>
-        <outline>1</outline>
-      </PolyStyle>
-    </Style>
-    <StyleMap id="poly-FBC02D-2000-76">
-      <Pair>
-        <key>normal</key>
-        <styleUrl>#poly-FBC02D-2000-76-normal</styleUrl>
-      </Pair>
-      <Pair>
-        <key>highlight</key>
-        <styleUrl>#poly-FBC02D-2000-76-highlight</styleUrl>
+        <styleUrl>#poly-FFEA00-2000-76-highlight</styleUrl>
       </Pair>
     </StyleMap>
     <Placemark>
       <name>Adams-Normandie</name>
-      <description><![CDATA[description: <br>data: 14216]]></description>
-      <styleUrl>#poly-C2185B-2000-76</styleUrl>
+      <description><![CDATA[description: <br>cases: 1179<br>deaths: 18]]></description>
+      <styleUrl>#poly-FFEA00-2000-76</styleUrl>
       <ExtendedData>
         <Data name="description">
           <value/>
         </Data>
         <Data name="cases">
-          <value>1166</value>
+          <value>1179</value>
         </Data>
         <Data name="deaths">
-          <value>20</value>
+          <value>18</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -226,17 +162,17 @@
     </Placemark>
     <Placemark>
       <name>Exposition Park</name>
-      <description><![CDATA[description: <br>data: 13489]]></description>
-      <styleUrl>#poly-4E342E-2000-76</styleUrl>
+      <description><![CDATA[description: <br>cases: 6149<br>deaths: 83]]></description>
+      <styleUrl>#poly-7CB342-2000-76</styleUrl>
       <ExtendedData>
         <Data name="description">
           <value/>
         </Data>
         <Data name="cases">
-          <value>6059</value>
+          <value>6149</value>
         </Data>
         <Data name="deaths">
-          <value>82</value>
+          <value>83</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -260,52 +196,18 @@
       </Polygon>
     </Placemark>
     <Placemark>
-      <name>Harvard Heights</name>
-      <description><![CDATA[description: <br>data: 14139]]></description>
-      <styleUrl>#poly-0097A7-2000-76</styleUrl>
-      <ExtendedData>
-        <Data name="description">
-          <value/>
-        </Data>
-        <Data name="cases">
-          <value>2250</value>
-        </Data>
-        <Data name="deaths">
-          <value>66</value>
-        </Data>
-      </ExtendedData>
-      <Polygon>
-        <outerBoundaryIs>
-          <LinearRing>
-            <tessellate>1</tessellate>
-            <coordinates>
-              -118.300095,34.052695,0
-              -118.309021,34.052695,0
-              -118.308978,34.037618,0
-              -118.300266,34.037475,0
-              -118.300352,34.04,0
-              -118.300738,34.041085,0
-              -118.300738,34.043023,0
-              -118.300395,34.043805,0
-              -118.300095,34.052695,0
-            </coordinates>
-          </LinearRing>
-        </outerBoundaryIs>
-      </Polygon>
-    </Placemark>
-    <Placemark>
       <name>Jefferson Park</name>
-      <description><![CDATA[description: <br>data: 14220]]></description>
-      <styleUrl>#poly-F57C00-2000-76</styleUrl>
+      <description><![CDATA[description: <br>cases: 1160<br>deaths: 13]]></description>
+      <styleUrl>#poly-FFEA00-2000-76</styleUrl>
       <ExtendedData>
         <Data name="description">
           <value/>
         </Data>
         <Data name="cases">
-          <value>1148</value>
+          <value>1160</value>
         </Data>
         <Data name="deaths">
-          <value>12</value>
+          <value>13</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -328,17 +230,17 @@
     </Placemark>
     <Placemark>
       <name>Pico Union</name>
-      <description><![CDATA[description: <br>data: 16713]]></description>
-      <styleUrl>#poly-FBC02D-2000-76</styleUrl>
+      <description><![CDATA[description: <br>cases: 7054<br>deaths: 228]]></description>
+      <styleUrl>#poly-FF5252-2000-76</styleUrl>
       <ExtendedData>
         <Data name="description">
           <value/>
         </Data>
         <Data name="cases">
-          <value>6993</value>
+          <value>7054</value>
         </Data>
         <Data name="deaths">
-          <value>212</value>
+          <value>228</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -371,17 +273,17 @@
     </Placemark>
     <Placemark>
       <name>University Park</name>
-      <description><![CDATA[description: <br>data: 12365]]></description>
+      <description><![CDATA[description: <br>cases: 3515<br>deaths: 55]]></description>
       <styleUrl>#poly-0288D1-2000-76</styleUrl>
       <ExtendedData>
         <Data name="description">
           <value/>
         </Data>
         <Data name="cases">
-          <value>3395</value>
+          <value>3515</value>
         </Data>
         <Data name="deaths">
-          <value>51</value>
+          <value>55</value>
         </Data>
       </ExtendedData>
       <Polygon>
@@ -398,6 +300,40 @@
               -118.274002,34.03808,0
               -118.27898,34.038151,0
               -118.284302,34.037369,0
+            </coordinates>
+          </LinearRing>
+        </outerBoundaryIs>
+      </Polygon>
+    </Placemark>
+    <Placemark>
+      <name>Harvard Heights</name>
+      <description><![CDATA[description: <br>cases: 2574<br>deaths: 68]]></description>
+      <styleUrl>#poly-FFEA00-2000-76</styleUrl>
+      <ExtendedData>
+        <Data name="description">
+          <value/>
+        </Data>
+        <Data name="cases">
+          <value>2574</value>
+        </Data>
+        <Data name="deaths">
+          <value>68</value>
+        </Data>
+      </ExtendedData>
+      <Polygon>
+        <outerBoundaryIs>
+          <LinearRing>
+            <tessellate>1</tessellate>
+            <coordinates>
+              -118.300095,34.052695,0
+              -118.309021,34.052695,0
+              -118.308978,34.037618,0
+              -118.300266,34.037475,0
+              -118.300352,34.04,0
+              -118.300738,34.041085,0
+              -118.300738,34.043023,0
+              -118.300395,34.043805,0
+              -118.300095,34.052695,0
             </coordinates>
           </LinearRing>
         </outerBoundaryIs>
