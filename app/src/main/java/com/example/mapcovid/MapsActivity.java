@@ -140,6 +140,9 @@ public class MapsActivity extends AppCompatActivity
         setContentView(R.layout.activity_maps);
         navView = findViewById(R.id.bottom_navigation);
 
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
         /*
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), "AIzaSyDdvVgxr1ImjzYJxDTBJzkMhyhn7Uo5Ye8");
@@ -458,7 +461,7 @@ public class MapsActivity extends AppCompatActivity
         //File temp = cw.getDir("imageDir", Context.MODE_PRIVATE);
         //imagePath = new File(temp, "UniqueFileName" + ".jpg");
         //imagePath = new File(Environment.getExternalStorageDirectory() + "/scrnshot.png");
-        imagePath = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "screenshot.png");
+        imagePath = new File(getExternalFilesDir(Environment.DIRECTORY_MOVIES) +"MapCovid/app/src/main/res/drawable/screenshot.png");
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(imagePath);
@@ -472,11 +475,11 @@ public class MapsActivity extends AppCompatActivity
         }
     }
     public void shareScreen() {
-            Uri uri = FileProvider.getUriForFile(
+            /*Uri uri = FileProvider.getUriForFile(
                     MapsActivity.this,
                     "com.example.mapcovid.provider", //(use your app signature + ".provider" )
-                    imagePath);
-            //Uri uri = Uri.fromFile(imagePath);
+                    imagePath);*/
+            Uri uri = Uri.fromFile(imagePath);
 
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("image/*");

@@ -47,19 +47,19 @@
         android:layout_alignRight="@id/fragment_layout"
         android:clickable="true"
         android:translationX="-5dp"
-        android:translationY="610dp"
+        android:translationY="560dp"
         app:backgroundTint="@color/white"
         app:rippleColor="@color/white"
         app:srcCompat="@android:drawable/ic_menu_info_details" />
 
     <ImageView
         android:id="@+id/legendPic"
-        android:visibility="invisible"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignRight="@id/fragment_layout"
         android:translationX="10dp"
-        android:translationY="450dp"
+        android:translationY="400dp"
+        android:visibility="invisible"
         app:srcCompat="@drawable/legend" />
 
 </RelativeLayout>
