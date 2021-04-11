@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,14 +18,19 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.io.File;
 
 public class SettingsActivity extends AppCompatActivity implements OnClickListener {
 
     RelativeLayout relativeLayout;
     Button viewmore;
     ValueAnimator mAnimator;
+    private Button toggleDark;
 
     /*
     Button location;
@@ -105,6 +112,15 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
 
         viewmore.setOnClickListener((View.OnClickListener) this);
 
+        toggleDark = (Button) findViewById(R.id.switch3);
+        toggleDark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+        });
+
         relativeLayout.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
 
@@ -122,6 +138,40 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
                     }
                 });
 
+        Context context = getApplicationContext();
+
+        final Button button = findViewById(R.id.clearall);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                deleteCache(context);
+                Toast.makeText(getApplicationContext(),"Data has been cleared!",Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    public static void deleteCache(Context context) {
+        try {
+            File dir = context.getCacheDir();
+            deleteDir(dir);
+        } catch (Exception e) { e.printStackTrace();}
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+            return dir.delete();
+        } else if(dir!= null && dir.isFile()) {
+            return dir.delete();
+        } else {
+            return false;
+        }
     }
 
     private void expand() {

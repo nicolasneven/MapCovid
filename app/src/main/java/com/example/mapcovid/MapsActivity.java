@@ -4,12 +4,20 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.os.Environment;
+import android.net.Uri;
+import android.widget.Button;
+import android.content.ContextWrapper;
+import android.content.Context;
+import androidx.core.content.FileProvider;
+import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -24,11 +32,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.maps.android.data.kml.KmlLayer;
 
 import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
@@ -46,6 +60,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.widget.Toast;
+
+import android.view.View;
 
 public class MapsActivity extends AppCompatActivity
         implements
@@ -71,6 +87,8 @@ public class MapsActivity extends AppCompatActivity
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
+    private File imagePath;
+    private FloatingActionButton share;
 
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -125,6 +143,18 @@ public class MapsActivity extends AppCompatActivity
                         return true;
                 }
                 return false;
+            }
+        });
+
+        //Share button
+        share = (FloatingActionButton) findViewById(R.id.shareButton);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Bitmap bit = takeScreenshot();
+                saveBitmap(bit);
+                shareScreen();
             }
         });
 
@@ -317,5 +347,46 @@ public class MapsActivity extends AppCompatActivity
     public static String getDefaultLocation() {
         LatLng loc = new LatLng(34.05, -118.24);
         return loc.toString();
+    }
+    //Screenshot Section
+    public Bitmap takeScreenshot() {
+        View rootView = findViewById(android.R.id.content).getRootView();
+        rootView.setDrawingCacheEnabled(true);
+        rootView.buildDrawingCache();
+        return rootView.getDrawingCache();
+    }
+    public void saveBitmap(Bitmap bitmap) {
+       // ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        //File temp = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        //imagePath = new File(temp, "UniqueFileName" + ".jpg");
+        //imagePath = new File(Environment.getExternalStorageDirectory() + "/scrnshot.png");
+        imagePath = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "screenshot.png");
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(imagePath);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log.e("GREC", e.getMessage(), e);
+        } catch (IOException e) {
+            Log.e("GREC", e.getMessage(), e);
+        }
+    }
+    public void shareScreen() {
+            Uri uri = FileProvider.getUriForFile(
+                    MapsActivity.this,
+                    "com.example.mapcovid.provider", //(use your app signature + ".provider" )
+                    imagePath);
+            //Uri uri = Uri.fromFile(imagePath);
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("image/*");
+        String shareBody = "Take a look at this LA Covid Map provided by MapCovid!";
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "LA County Map");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 }
