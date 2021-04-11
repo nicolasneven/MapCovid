@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.widget.Button;
 import android.content.ContextWrapper;
 import android.content.Context;
+import android.widget.ImageView;
 
 import androidx.core.content.FileProvider;
 
@@ -110,6 +111,7 @@ public class MapsActivity extends AppCompatActivity
     private CameraPosition cameraPosition;
     private File imagePath;
     private FloatingActionButton share;
+    private FloatingActionButton legend;
     private Marker expo;
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -188,6 +190,20 @@ public class MapsActivity extends AppCompatActivity
                 shareScreen();
             }
         });
+
+        //legend button
+        legend = (FloatingActionButton) findViewById(R.id.legendButton);
+        legend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView iv = (ImageView) findViewById(R.id.legendPic);
+                if(iv.getVisibility()==iv.INVISIBLE)
+                iv.setVisibility(iv.VISIBLE);
+                else
+                    iv.setVisibility(iv.INVISIBLE);
+            }
+        });
+
 
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);

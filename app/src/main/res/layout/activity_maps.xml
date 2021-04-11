@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
@@ -10,8 +11,7 @@
         android:layout_height="fill_parent"
         android:weightSum="3">
 
-        <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
@@ -34,8 +34,32 @@
         android:layout_height="108dp"
         android:layout_alignRight="@id/fragment_layout"
         android:clickable="true"
+        android:translationX="-5dp"
         android:translationY="75dp"
         app:backgroundTint="@color/white"
+        app:rippleColor="#FFFFFF"
         app:srcCompat="@android:drawable/ic_menu_share" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/legendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/fragment_layout"
+        android:clickable="true"
+        android:translationX="-5dp"
+        android:translationY="610dp"
+        app:backgroundTint="@color/white"
+        app:rippleColor="@color/white"
+        app:srcCompat="@android:drawable/ic_menu_info_details" />
+
+    <ImageView
+        android:id="@+id/legendPic"
+        android:visibility="invisible"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignRight="@id/fragment_layout"
+        android:translationX="10dp"
+        android:translationY="450dp"
+        app:srcCompat="@drawable/legend" />
 
 </RelativeLayout>
