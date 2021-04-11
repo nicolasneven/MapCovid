@@ -190,6 +190,8 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         Button b1=(Button)findViewById(R.id.notification);
         String CHANNEL_ID = "234";
 
+        String storage = String.valueOf(getApplicationContext().getFilesDir().getTotalSpace());
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,6 +208,7 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
                         .setSmallIcon(R.drawable.notification)
                         .setContentTitle("MapCovid Test Notification")
                         .setContentText("Test Notification Button was pressed!")
+                        //.setContentText(storage)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         // Set the intent that will fire when the user taps the notification
                         .setContentIntent(pendingIntent)
