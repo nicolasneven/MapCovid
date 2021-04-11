@@ -27,17 +27,27 @@
                 android:text="Settings"
                 android:textColor="@color/black"
                 android:textSize="30dp" />
+
         </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/Storage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="MapCovid takes up 7.68 MB"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <Switch
             android:id="@+id/switch1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
             android:text="Location Tracking"
             android:textColor="@color/white"
-            android:paddingTop="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:textSize="20dp" />
 
         <Switch
@@ -71,7 +81,18 @@
             android:textColor="@color/black"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
-            android:layout_marginTop="30dp"/>/>
+            android:layout_marginTop="30dp"/>
+
+        <Button
+            android:id="@+id/testNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Notification"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="20dp"/>
 
         <Button
             android:id="@+id/viewmore"
