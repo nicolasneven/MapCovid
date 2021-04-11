@@ -223,17 +223,10 @@ public class MapsActivity extends AppCompatActivity
         // Testing Locations
         LatLng usc = new LatLng(34.02024, -118.28083);
         map.moveCamera(CameraUpdateFactory.newLatLng(usc));
-<<<<<<< Updated upstream
-        map.setMinZoomPreference(14);
-        LatLng expopark = new LatLng(34.011175, -118.28433);
-        expo = map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
-        LatLng universalcommunity = new LatLng(34.02738, -118.25810);
-=======
         map.setMinZoomPreference(12);
         LatLng expopark = new LatLng(34.011175,-118.28433);
         map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng universalcommunity = new LatLng(34.02738,-118.25810);
->>>>>>> Stashed changes
         map.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng crenshaw = new LatLng(34.02243, -118.33473);
         map.addMarker(new MarkerOptions().position(crenshaw).title("Crenshaw Testing").snippet("Hours: Mon-Fri 9-5"));
