@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -40,6 +41,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.maps.android.data.kml.KmlLayer;
 
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
@@ -68,6 +76,13 @@ import androidx.core.content.ContextCompat;
 import android.widget.Toast;
 
 import android.view.View;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 public class MapsActivity extends AppCompatActivity
         implements
@@ -116,6 +131,9 @@ public class MapsActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         navView = findViewById(R.id.bottom_navigation);
@@ -205,10 +223,17 @@ public class MapsActivity extends AppCompatActivity
         // Testing Locations
         LatLng usc = new LatLng(34.02024, -118.28083);
         map.moveCamera(CameraUpdateFactory.newLatLng(usc));
+<<<<<<< Updated upstream
         map.setMinZoomPreference(14);
         LatLng expopark = new LatLng(34.011175, -118.28433);
         expo = map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng universalcommunity = new LatLng(34.02738, -118.25810);
+=======
+        map.setMinZoomPreference(12);
+        LatLng expopark = new LatLng(34.011175,-118.28433);
+        map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
+        LatLng universalcommunity = new LatLng(34.02738,-118.25810);
+>>>>>>> Stashed changes
         map.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng crenshaw = new LatLng(34.02243, -118.33473);
         map.addMarker(new MarkerOptions().position(crenshaw).title("Crenshaw Testing").snippet("Hours: Mon-Fri 9-5"));
@@ -262,7 +287,23 @@ public class MapsActivity extends AppCompatActivity
     }
 
     public KmlLayer readKML() throws IOException, XmlPullParserException {
-        KmlLayer layer = new KmlLayer(map, R.raw.colored, getApplicationContext());
+        Thread myThread = new Thread() {
+            public void run() {
+                try {
+                    int[][] data = WebScraper.getData();
+                    boolean success = WebScraper.updateKML(data);
+                    if (success) {
+                        System.out.println("Update KML Success");
+                    } else {
+                        System.out.println("Update KML Error");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        // myThread.start();
+        KmlLayer layer = new KmlLayer(map, R.raw.legend, getApplicationContext());
         return layer;
     }
 
@@ -437,4 +478,5 @@ public class MapsActivity extends AppCompatActivity
 
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
+
 }
