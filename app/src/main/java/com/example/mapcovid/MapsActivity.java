@@ -1,28 +1,16 @@
 package com.example.mapcovid;
 
-import androidx.fragment.app.FragmentActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
+import android.widget.Switch;
 import android.widget.Toast;
 import android.os.Environment;
 import android.net.Uri;
-import android.widget.Button;
-import android.content.ContextWrapper;
-import android.content.Context;
 import android.widget.ImageView;
-
-import androidx.core.content.FileProvider;
-
-import com.google.android.datatransport.runtime.logging.Logging;
-import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -32,58 +20,36 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.maps.android.data.kml.KmlLayer;
 
-import org.jsoup.HttpStatusException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.widget.Toast;
-
 import android.view.View;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 public class MapsActivity extends AppCompatActivity
         implements
@@ -287,6 +253,18 @@ public class MapsActivity extends AppCompatActivity
                 });
         try {
             lastKnownLocation = lastKnownLocation2.getResult();
+            LatLng ne = new LatLng(34.4921, -117.4003);
+            LatLng sw = new LatLng(33.4233, -118.58);
+
+            LatLngBounds curScreen = new LatLngBounds(ne, sw);
+            LatLng currLoc = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+            boolean inside = curScreen.contains(currLoc);
+
+            if(inside){
+                Switch locSwitch = (Switch) findViewById(R.id.locswitch);
+                locSwitch.setChecked(true);
+            }
+
         }catch(IllegalStateException exception){
             return;
         }
@@ -341,6 +319,7 @@ public class MapsActivity extends AppCompatActivity
         }
         // [END maps_check_location_permission]
     }
+
 
     @Override
     public boolean onMyLocationButtonClick() {
