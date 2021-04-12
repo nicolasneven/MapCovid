@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 import android.os.Environment;
@@ -262,7 +263,9 @@ public class MapsActivity extends AppCompatActivity
 
             if(inside){
                 Switch locSwitch = (Switch) findViewById(R.id.locswitch);
-                locSwitch.setChecked(true);
+                if (locSwitch != null) {
+                    locSwitch.setChecked(true);
+                }
             }
 
         }catch(IllegalStateException exception){
