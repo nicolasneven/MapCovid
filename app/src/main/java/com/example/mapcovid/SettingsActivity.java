@@ -29,6 +29,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatDelegate;
 import android.widget.Switch;
@@ -36,6 +37,8 @@ import android.widget.Switch;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class SettingsActivity extends AppCompatActivity implements OnClickListener {
 
@@ -190,8 +193,6 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         Button b1=(Button)findViewById(R.id.notification);
         String CHANNEL_ID = "234";
 
-        String storage = String.valueOf(getApplicationContext().getFilesDir().getTotalSpace());
-
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,6 +251,19 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
             }
         });
 
+        //show storage amount
+        long size = getApplicationContext().getFilesDir().getTotalSpace();
+        double display_size = (double) size / 1000000000;
+
+        //two decimal places
+        double a = display_size; // just assigning your decimal to a variable
+        a=a*100;              // this sets a to 354.555555
+        a=Math.floor(a);      // this sets a to 354
+        a=a/100;              // this sets a to 3.54 and thus removing all your 5's
+
+        String display_storage = "MapCovid takes up " + a + " MB";
+        TextView txtView = (TextView) findViewById(R.id.Storage);
+        txtView.setText(display_storage);
     }
 
     public static void deleteCache(Context context) {
