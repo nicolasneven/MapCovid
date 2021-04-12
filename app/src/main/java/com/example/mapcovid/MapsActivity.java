@@ -461,7 +461,7 @@ public class MapsActivity extends AppCompatActivity
         //File temp = cw.getDir("imageDir", Context.MODE_PRIVATE);
         //imagePath = new File(temp, "UniqueFileName" + ".jpg");
         //imagePath = new File(Environment.getExternalStorageDirectory() + "/scrnshot.png");
-        imagePath = new File(getExternalFilesDir(Environment.DIRECTORY_MOVIES) +"MapCovid/app/src/main/res/drawable/screenshot.png");
+        imagePath = new File(Environment.getExternalStorageDirectory() + "/Download/screenshot.png");
         FileOutputStream fos;
         try {
             fos = new FileOutputStream(imagePath);
