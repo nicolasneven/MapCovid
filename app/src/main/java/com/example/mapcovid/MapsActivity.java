@@ -295,7 +295,7 @@ public class MapsActivity extends AppCompatActivity
                 }
             }
         };
-        // myThread.start();
+        myThread.start();
         KmlLayer layer = new KmlLayer(map, R.raw.legend, getApplicationContext());
         return layer;
     }
