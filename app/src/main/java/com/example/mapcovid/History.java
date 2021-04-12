@@ -83,8 +83,7 @@ public class History extends AppCompatActivity {
 //        //boolean inside = curScreen.contains(currLoc);
         Switch locSwitch = (Switch) findViewById(R.id.locswitch);
         Boolean inside = locSwitch.isChecked();
-//        boolean inside = curScreen.contains(current);
-//
+
         if (!inside){
             Intent i = new Intent(getApplicationContext(), PopActivity.class);
             startActivity(i);
