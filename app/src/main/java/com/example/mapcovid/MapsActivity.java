@@ -491,13 +491,12 @@ public class MapsActivity extends AppCompatActivity
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
-<<<<<<< Updated upstream
-=======
+
     public void sendMessage(View view) {
         LatLng usc = new LatLng(34.02024, -118.28083);
         map.moveCamera(CameraUpdateFactory.newLatLng(usc));
         map.setMinZoomPreference(14);
     }
 
->>>>>>> Stashed changes
+
 }
