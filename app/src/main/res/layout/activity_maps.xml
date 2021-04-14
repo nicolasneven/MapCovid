@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".MapsActivity" />
+
     </LinearLayout>
 
     <Button xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,6 +27,17 @@
         android:background="#AAA"
         android:text="RECENTER"
         android:onClick="sendMessage" />
+    <TextView
+        android:id="@+id/warningText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#AAA"
+        android:text="Warning: you are out of Los Angeles /n service availability may not be available"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:paddingTop="60dp"
+        android:visibility="invisible"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
