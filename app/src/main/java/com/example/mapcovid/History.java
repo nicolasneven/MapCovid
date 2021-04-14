@@ -3,11 +3,14 @@ package com.example.mapcovid;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -15,7 +18,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -61,15 +66,15 @@ public class History extends AppCompatActivity {
             }
         });
 
-//        Switch s = (Switch) findViewById(R.id.locswitch);
-//        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (!isChecked) {
-//                    Intent i = new Intent(getApplicationContext(), PopActivity.class);
-//                    startActivity(i);
-//                }
-//            }
-//        });
+        //SharedPreferences preferences = getSharedPreferences("history", Context.MODE_PRIVATE);
+        //boolean isChecked = preferences.getBoolean("historyloc", false);
+
+
+        if(!MapsActivity.getCB()) {
+            Intent i = new Intent(getApplicationContext(), PopActivity.class);
+            startActivity(i);
+        }
+
 
         recycler_view = findViewById(R.id.recycler_view);
 

@@ -1,11 +1,14 @@
 package com.example.mapcovid;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -49,6 +52,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceManager;
 
 import android.view.View;
 
@@ -94,9 +98,13 @@ public class MapsActivity extends AppCompatActivity
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Task<Location> lastKnownLocation2;
-    private Location lastKnownLocation;
+    private static Location lastKnownLocation;
     private static int SPLASH_TIME_OUT = 4000;
     private BottomNavigationView navView;
+
+    private Switch cb1;
+    private static boolean cb2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,35 +123,6 @@ public class MapsActivity extends AppCompatActivity
         Places.initialize(getApplicationContext(), "AIzaSyDdvVgxr1ImjzYJxDTBJzkMhyhn7Uo5Ye8");
         placesClient = Places.createClient(this);
         */
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-
-        //navView.setSelectedItemId(R.id.mapicon);
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                //Toast.makeText(MapsActivity.this, ""+item.getTitle(), Toast.LENGTH_SHORT).show();
-                //return true;
-                switch (item.getItemId()) {
-                    case R.id.mapicon:
-                        return true;
-                    case R.id.mediaicon:
-                        startActivity(new Intent(getApplicationContext(), MediaActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.historyicon:
-                        startActivity(new Intent(getApplicationContext(), History.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.settingsicon:
-                        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                }
-                return false;
-            }
-        });
 
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -181,6 +160,37 @@ public class MapsActivity extends AppCompatActivity
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+
+        //navView.setSelectedItemId(R.id.mapicon);
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                //Toast.makeText(MapsActivity.this, ""+item.getTitle(), Toast.LENGTH_SHORT).show();
+                //return true;
+                switch (item.getItemId()) {
+                    case R.id.mapicon:
+                        return true;
+                    case R.id.mediaicon:
+                        startActivity(new Intent(getApplicationContext(), MediaActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.historyicon:
+                        Intent hisintent = new Intent(getApplicationContext(), History.class);
+                        startActivity(hisintent);
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.settingsicon:
+                        startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -254,19 +264,6 @@ public class MapsActivity extends AppCompatActivity
                 });
         try {
             lastKnownLocation = lastKnownLocation2.getResult();
-            LatLng ne = new LatLng(34.4921, -117.4003);
-            LatLng sw = new LatLng(33.4233, -118.58);
-
-            LatLngBounds curScreen = new LatLngBounds(ne, sw);
-            LatLng currLoc = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-            boolean inside = curScreen.contains(currLoc);
-
-            if(inside){
-                Switch locSwitch = (Switch) findViewById(R.id.locswitch);
-                if (locSwitch != null) {
-                    locSwitch.setChecked(true);
-                }
-            }
 
         }catch(IllegalStateException exception){
             return;
@@ -277,6 +274,21 @@ public class MapsActivity extends AppCompatActivity
             Toast.makeText(MapsActivity.this, "WARNING: You are out of the Los Angeles area. Functionality may not work as well.", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+
+    public static boolean getCB(){
+        LatLng ne = new LatLng(34.4921, -117.4003);
+        LatLng sw = new LatLng(33.4233, -118.58);
+
+        LatLngBounds curScreen = new LatLngBounds(sw, ne);
+        //LatLng currLoc = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+        LatLng currLoc = new LatLng(35.5, -118);
+        boolean cb2 = false;
+        cb2 = curScreen.contains(currLoc);
+
+        System.out.println("PLEASE FUCKING WORK: " + cb2);
+        return cb2;
     }
 
     public KmlLayer readKML() throws IOException, XmlPullParserException {
