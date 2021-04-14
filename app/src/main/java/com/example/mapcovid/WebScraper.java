@@ -59,7 +59,7 @@ public class WebScraper {
 
     public static boolean updateKML(int[][] data) {
         try {
-            File inputFile = new File("/Users/Nicolas/Desktop/MapCovid/app/src/main/res/raw/legend.kml");
+            File inputFile = new File("../MapCovid/app/src/main/res/raw/legend.kml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             org.w3c.dom.Document doc = dBuilder.parse(inputFile);
@@ -75,9 +75,9 @@ public class WebScraper {
                 if (node.getNodeType() == Node.ELEMENT_NODE) { // update data here
                     org.w3c.dom.Element e = (org.w3c.dom.Element) node;
                     if (i == 1 || i == 4 || i == 7 || i == 10 || i == 13 || i == 16) {
-                        // e.setTextContent(Integer.toString(data[city][0]));
+                        e.setTextContent(Integer.toString(data[city][0]));
                     } else if (i == 2 || i == 5 || i == 8 || i == 11 || i == 14 || i == 17) {
-                        // e.setTextContent(Integer.toString(data[city][2]));
+                        e.setTextContent(Integer.toString(data[city][2]));
                         city++;
                     }
                     // System.out.println(node.getTextContent());
@@ -87,7 +87,7 @@ public class WebScraper {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("/Users/Nicolas/Desktop/MapCovid/app/src/main/res/raw/legend.kml"));
+            StreamResult result = new StreamResult(new File("../MapCovid/app/src/main/res/raw/legend.kml"));
             transformer.transform(source, result);
 
 

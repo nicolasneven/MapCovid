@@ -275,7 +275,7 @@ public class MapsActivity extends AppCompatActivity
         try {
             lastKnownLocation = lastKnownLocation2.getResult();
 
-        }catch(IllegalStateException exception){
+        } catch(IllegalStateException exception){
             return;
         }
 
