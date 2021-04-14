@@ -10,11 +10,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-<<<<<<< HEAD
 import android.widget.CheckBox;
-=======
 import android.view.ViewGroup;
->>>>>>> 6713c551a9adbf38775040e093dd264ac4f0f7c5
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
