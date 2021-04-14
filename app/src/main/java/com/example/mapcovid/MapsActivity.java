@@ -7,10 +7,17 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+<<<<<<< HEAD
 import android.widget.CheckBox;
+=======
+import android.view.ViewGroup;
+>>>>>>> 6713c551a9adbf38775040e093dd264ac4f0f7c5
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Environment;
 import android.net.Uri;
@@ -241,6 +248,8 @@ public class MapsActivity extends AppCompatActivity
 
 
         //check how far the user is
+
+
         float[] distance = new float[2];
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -262,16 +271,19 @@ public class MapsActivity extends AppCompatActivity
                         }
                     }
                 });
+        boolean inside;
         try {
             lastKnownLocation = lastKnownLocation2.getResult();
 
         }catch(IllegalStateException exception){
             return;
         }
-        
+
         Location.distanceBetween(expo.getPosition().latitude, expo.getPosition().longitude, lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), distance);
-        if (distance[0] > 96560){
-            Toast.makeText(MapsActivity.this, "WARNING: You are out of the Los Angeles area. Functionality may not work as well.", Toast.LENGTH_LONG).show();
+
+        if (distance[0] > 60){
+            TextView txtView = (TextView)findViewById(R.id.warningText);
+            txtView.setVisibility(View.VISIBLE);
         }
 
     }
@@ -332,6 +344,12 @@ public class MapsActivity extends AppCompatActivity
             // permission = false;
 
         }
+        Context context = getApplicationContext();
+        CharSequence text = "Hello toast!";
+        int duration = Toast.LENGTH_LONG;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
         // [END maps_check_location_permission]
     }
 
