@@ -185,6 +185,19 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 deleteCache(context);
+                //show storage amount
+                long size = getApplicationContext().getFilesDir().getTotalSpace();
+                double display_size = (double) size / 1000000000;
+
+                //two decimal places
+                double a = display_size; // just assigning your decimal to a variable
+                a=a*100;              // this sets a to 354.555555
+                a=Math.floor(a);      // this sets a to 354
+                a=a/100;              // this sets a to 3.54 and thus removing all your 5's
+
+                String display_storage = "MapCovid takes up " + a + " MB";
+                TextView txtView = (TextView) findViewById(R.id.Storage);
+                txtView.setText(display_storage);
                 Toast.makeText(getApplicationContext(),"Data has been cleared!",Toast.LENGTH_LONG).show();
             }
         });
@@ -265,6 +278,7 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         TextView txtView = (TextView) findViewById(R.id.Storage);
         txtView.setText(display_storage);
     }
+
 
     public static void deleteCache(Context context) {
         try {
