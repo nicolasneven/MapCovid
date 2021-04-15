@@ -341,12 +341,12 @@ public class MapsActivity extends AppCompatActivity
             // permission = false;
 
         }
-        Context context = getApplicationContext();
+       /* Context context = getApplicationContext();
         CharSequence text = "Hello toast!";
         int duration = Toast.LENGTH_LONG;
 
         Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        toast.show();*/
         // [END maps_check_location_permission]
     }
 
