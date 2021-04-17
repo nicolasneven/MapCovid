@@ -60,6 +60,7 @@ public class WebScraper {
     public static boolean updateKML(int[][] data) {
         try {
             File inputFile = new File("../MapCovid/app/src/main/res/raw/legend.kml");
+            // File inputFile = new File(context.getFilesDir(), "legend.kml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             org.w3c.dom.Document doc = dBuilder.parse(inputFile);

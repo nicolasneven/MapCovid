@@ -38,12 +38,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.maps.android.data.kml.KmlLayer;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
@@ -59,6 +68,13 @@ import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
 import android.view.View;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 public class MapsActivity extends AppCompatActivity
         implements
@@ -303,21 +319,22 @@ public class MapsActivity extends AppCompatActivity
     public KmlLayer readKML() throws IOException, XmlPullParserException {
         Thread myThread = new Thread() {
             public void run() {
-                try {
-                    int[][] data = WebScraper.getData();
-                    boolean success = WebScraper.updateKML(data);
-                    if (success) {
-                        System.out.println("Update KML Success");
-                    } else {
-                        System.out.println("Update KML Error");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+            try {
+                int[][] data = getData();
+                boolean success = updateKML(data);
+                if (success) {
+                    System.out.println("Update KML Success");
+                } else {
+                    System.out.println("Update KML Error");
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             }
         };
         myThread.start();
-        KmlLayer layer = new KmlLayer(map, R.raw.legend, getApplicationContext());
+        InputStream is = this.openFileInput("legend.kml");
+        KmlLayer layer = new KmlLayer(map, is, getApplicationContext());
         return layer;
     }
 
@@ -507,5 +524,74 @@ public class MapsActivity extends AppCompatActivity
         map.setMinZoomPreference(14);
     }
 
+    public int[][] getData() throws IOException {
+        Document doc = Jsoup.connect("http://publichealth.lacounty.gov/media/coronavirus/locations.htm").get();
+        Elements table = doc.select("table.table.table-striped.table-bordered.table-sm").next();
+        // System.out.println(table.html());
+        int[][] data = new int[6][4];
+        int i = 0, j = 0;
+        for (Element e : table.select("tr")) {
+            // adams-normandie, exposition park, harvard heights, jefferson park, pico-union, university park
+            if (i == 87 || i == 123 || i == 135 || i == 142 || i == 172 || i == 201) {
+                System.out.println(e.text());
+                String[] split = e.text().split(" ");
+                int[] city;
+                int l = 0;
+                for (int k = split.length - 4; k < split.length; k++) {
+                    data[j][l] = Integer.parseInt(split[k]);
+                    // System.out.println(data[j][l]);
+                    l++;
+                }
+                j++;
+            } else if (i > 340) break;
+            i++;
+        }
+        return data;
+    }
+
+    public boolean updateKML(int[][] data) {
+        try {
+            // File inputFile = new File("android.resource://com.example.mapcovid/raw/legend");
+            InputStream stream = this.getResources().openRawResource(R.raw.legend);
+            InputSource isource = new InputSource(stream);
+            // File inputFile = new File(dir, "legend.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            org.w3c.dom.Document doc = dBuilder.parse(isource);
+            ((org.w3c.dom.Document) doc).getDocumentElement().normalize();
+            // System.out.println("Root element :" + ((org.w3c.dom.Document) doc).getDocumentElement().getNodeName());
+            NodeList values = ((org.w3c.dom.Document) doc).getElementsByTagName("value");
+            System.out.println("----------------------------");
+            int city = 0;
+            for (int i = 0; i < values.getLength(); i++) {
+                Node node = values.item(i); // city stats
+                // System.out.print(i + " ");
+                // System.out.println(node.getTextContent());
+                if (node.getNodeType() == Node.ELEMENT_NODE) { // update data here
+                    org.w3c.dom.Element e = (org.w3c.dom.Element) node;
+                    if (i == 1 || i == 4 || i == 7 || i == 10 || i == 13 || i == 16) {
+                        e.setTextContent(Integer.toString(data[city][0]));
+                    } else if (i == 2 || i == 5 || i == 8 || i == 11 || i == 14 || i == 17) {
+                        e.setTextContent(Integer.toString(data[city][2]));
+                        city++;
+                    }
+                    // System.out.println(node.getTextContent());
+                }
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            // StreamResult result = new StreamResult(new File("../MapCovid/app/src/main/res/raw/legend.kml"));
+            // OutputStream os = openFileOutput("legend.kml", Context.MODE_PRIVATE);
+            StreamResult result = new StreamResult(new File(this.getFilesDir(), "legend.kml"));
+            transformer.transform(source, result);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
 
 }
