@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -166,8 +167,8 @@ public class MapsActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 ImageView iv = (ImageView) findViewById(R.id.legendPic);
-                if(iv.getVisibility()==iv.INVISIBLE)
-                iv.setVisibility(iv.VISIBLE);
+                if (iv.getVisibility() == iv.INVISIBLE)
+                    iv.setVisibility(iv.VISIBLE);
                 else
                     iv.setVisibility(iv.INVISIBLE);
             }
@@ -240,9 +241,9 @@ public class MapsActivity extends AppCompatActivity
         LatLng usc = new LatLng(34.02024, -118.28083);
         map.moveCamera(CameraUpdateFactory.newLatLng(usc));
         map.setMinZoomPreference(12);
-        LatLng expopark = new LatLng(34.011175,-118.28433);
-        map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
-        LatLng universalcommunity = new LatLng(34.02738,-118.25810);
+        LatLng expopark = new LatLng(34.011175, -118.28433);
+        expo = map.addMarker(new MarkerOptions().position(expopark).title("Expo Park Testing").snippet("Hours: Mon-Fri 9-5"));
+        LatLng universalcommunity = new LatLng(34.02738, -118.25810);
         map.addMarker(new MarkerOptions().position(universalcommunity).title("Universal Community Health Testing").snippet("Hours: Mon-Fri 9-5"));
         LatLng crenshaw = new LatLng(34.02243, -118.33473);
         map.addMarker(new MarkerOptions().position(crenshaw).title("Crenshaw Testing").snippet("Hours: Mon-Fri 9-5"));
@@ -261,9 +262,16 @@ public class MapsActivity extends AppCompatActivity
 
 
         //check how far the user is
-
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         float[] distance = new float[2];
+        System.out.println("BEEPBOP");
+        getLocationPermission();
+        System.out.println(PackageManager.PERMISSION_GRANTED);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -274,35 +282,38 @@ public class MapsActivity extends AppCompatActivity
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        lastKnownLocation2 = fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
-                        }
-                    }
-                });
-        boolean inside;
-        try {
-            lastKnownLocation = lastKnownLocation2.getResult();
+        System.out.println("THIS IS NOT A DRILL");
+        //CancellationToken cancelledToken = null;
+        //lastKnownLocation2 = fusedLocationClient.getCurrentLocation(1, cancelledToken);
+        //boolean inside;
+       // try {
+        //    lastKnownLocation = lastKnownLocation2.getResult();
 
-        } catch(IllegalStateException exception){
-            return;
-        }
+        //} catch (IllegalStateException exception) {
+          //  return;
+        //}
+        lastKnownLocation2 = fusedLocationClient.getLastLocation();
+        lastKnownLocation2.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                location = lastKnownLocation2.getResult();
+                System.out.println("THIS IS A DRILL");
+                Location.distanceBetween(expo.getPosition().latitude, expo.getPosition().longitude, location.getLatitude(), location.getLongitude(), distance);
 
-        Location.distanceBetween(expo.getPosition().latitude, expo.getPosition().longitude, lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), distance);
+                if (distance[0] > 60) {
+                    TextView txtView = (TextView) findViewById(R.id.warningText);
+                    txtView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        System.out.println("DREAMS");
 
-        if (distance[0] > 60){
-            TextView txtView = (TextView)findViewById(R.id.warningText);
-            txtView.setVisibility(View.VISIBLE);
-        }
+
 
     }
 
 
-    public static boolean getCB(){
+    public static boolean getCB() {
         LatLng ne = new LatLng(34.4921, -117.4003);
         LatLng sw = new LatLng(33.4233, -118.58);
 
@@ -319,17 +330,17 @@ public class MapsActivity extends AppCompatActivity
     public KmlLayer readKML() throws IOException, XmlPullParserException {
         Thread myThread = new Thread() {
             public void run() {
-            try {
-                int[][] data = getData();
-                boolean success = updateKML(data);
-                if (success) {
-                    System.out.println("Update KML Success");
-                } else {
-                    System.out.println("Update KML Error");
+                try {
+                    int[][] data = getData();
+                    boolean success = updateKML(data);
+                    if (success) {
+                        System.out.println("Update KML Success");
+                    } else {
+                        System.out.println("Update KML Error");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             }
         };
         myThread.start();
@@ -475,6 +486,7 @@ public class MapsActivity extends AppCompatActivity
         LatLng loc = new LatLng(34.05, -118.24);
         return loc.toString();
     }
+
     //Screenshot Section
     public Bitmap takeScreenshot() {
         View rootView = findViewById(android.R.id.content).getRootView();
@@ -482,8 +494,9 @@ public class MapsActivity extends AppCompatActivity
         rootView.buildDrawingCache();
         return rootView.getDrawingCache();
     }
+
     public void saveBitmap(Bitmap bitmap) {
-       // ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // ContextWrapper cw = new ContextWrapper(getApplicationContext());
         //File temp = cw.getDir("imageDir", Context.MODE_PRIVATE);
         //imagePath = new File(temp, "UniqueFileName" + ".jpg");
         //imagePath = new File(Environment.getExternalStorageDirectory() + "/scrnshot.png");
@@ -500,12 +513,13 @@ public class MapsActivity extends AppCompatActivity
             Log.e("GREC", e.getMessage(), e);
         }
     }
+
     public void shareScreen() {
             /*Uri uri = FileProvider.getUriForFile(
                     MapsActivity.this,
                     "com.example.mapcovid.provider", //(use your app signature + ".provider" )
                     imagePath);*/
-            Uri uri = Uri.fromFile(imagePath);
+        Uri uri = Uri.fromFile(imagePath);
 
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("image/*");
@@ -593,5 +607,7 @@ public class MapsActivity extends AppCompatActivity
 
         return true;
     }
+
+
 
 }
