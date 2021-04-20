@@ -118,7 +118,7 @@ public class MapsActivity extends AppCompatActivity
 
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
-    private Task<Location> lastKnownLocation2;
+    private static Task<Location> lastKnownLocation2;
     private static Location lastKnownLocation;
     private static int SPLASH_TIME_OUT = 4000;
     private BottomNavigationView navView;
@@ -318,8 +318,9 @@ public class MapsActivity extends AppCompatActivity
         LatLng sw = new LatLng(33.4233, -118.58);
 
         LatLngBounds curScreen = new LatLngBounds(sw, ne);
-        //LatLng currLoc = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
-        LatLng currLoc = new LatLng(35.5, -118);
+        Location location = lastKnownLocation2.getResult();
+        LatLng currLoc = new LatLng(location.getLatitude(), location.getLongitude());
+        //LatLng currLoc = new LatLng(35.5, -118);
         boolean cb2 = false;
         cb2 = curScreen.contains(currLoc);
 
