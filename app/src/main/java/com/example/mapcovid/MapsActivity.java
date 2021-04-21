@@ -123,8 +123,7 @@ public class MapsActivity extends AppCompatActivity
     private static int SPLASH_TIME_OUT = 4000;
     private BottomNavigationView navView;
 
-    private Switch cb1;
-    private static boolean cb2;
+    private static Context context;
 
 
     @Override
@@ -147,6 +146,7 @@ public class MapsActivity extends AppCompatActivity
 
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        context = getApplicationContext();
 
 
         //Share button
@@ -160,6 +160,8 @@ public class MapsActivity extends AppCompatActivity
                 shareScreen();
             }
         });
+
+
 
         //legend button
         legend = (FloatingActionButton) findViewById(R.id.legendButton);
@@ -299,53 +301,54 @@ public class MapsActivity extends AppCompatActivity
     }
 
 
-    public boolean getCB() {
+    public static boolean getCB() {
         final boolean[] result = {false};
-//        LatLng ne = new LatLng(34.4921, -117.4003);
-//        LatLng sw = new LatLng(33.4233, -118.58);
+        LatLng ne = new LatLng(34.4921, -117.4003);
+        LatLng sw = new LatLng(33.4233, -118.58);
+
+        LatLngBounds curScreen = new LatLngBounds(sw, ne);
+        Location location = lastKnownLocation2.getResult();
+        LatLng currLoc = new LatLng(location.getLatitude(), location.getLongitude());
+        //LatLng currLoc = new LatLng(35.5, -118);
+        boolean cb2 = false;
+        cb2 = curScreen.contains(currLoc);
+
+        System.out.println("PLEASE FUCKING WORK: " + cb2);
+        return cb2;
+
+//        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            // return TODO;
+//        }
+//        float[] distance = new float[2];
+//        lastKnownLocation2 = fusedLocationClient.getLastLocation();
+//        lastKnownLocation2.addOnSuccessListener(new OnSuccessListener<Location>() {
+//            @Override
+//            public void onSuccess(Location location) {
+//                location = lastKnownLocation2.getResult();
+//                System.out.println("THIS IS A DRILL");
+//                // Location.distanceBetween(expo.getPosition().latitude, expo.getPosition().longitude, location.getLatitude(), location.getLongitude(), distance);
 //
-//        LatLngBounds curScreen = new LatLngBounds(sw, ne);
-//        // Location location = lastKnownLocation2.getResult();
-//        // LatLng currLoc = new LatLng(location.getLatitude(), location.getLongitude());
-//        LatLng currLoc = new LatLng(35.5, -118);
-//        boolean cb2 = false;
-//        cb2 = curScreen.contains(currLoc);
+//                LatLng ne = new LatLng(34.4921, -117.4003);
+//                LatLng sw = new LatLng(33.4233, -118.58);
 //
-//        System.out.println("PLEASE FUCKING WORK: " + cb2);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            // return TODO;
-        }
-        float[] distance = new float[2];
-        lastKnownLocation2 = fusedLocationClient.getLastLocation();
-        lastKnownLocation2.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                location = lastKnownLocation2.getResult();
-                System.out.println("THIS IS A DRILL");
-                // Location.distanceBetween(expo.getPosition().latitude, expo.getPosition().longitude, location.getLatitude(), location.getLongitude(), distance);
-
-                LatLng ne = new LatLng(34.4921, -117.4003);
-                LatLng sw = new LatLng(33.4233, -118.58);
-
-                LatLngBounds curScreen = new LatLngBounds(sw, ne);
-                // Location location = lastKnownLocation2.getResult();
-                LatLng currLoc = new LatLng(location.getLatitude(), location.getLongitude());
-                // LatLng currLoc = new LatLng(35.5, -118);
-
-                if (curScreen.contains(currLoc)) {
-                    result[0] = true;
-                }
-            }
-        });
-        return result[0];
+//                LatLngBounds curScreen = new LatLngBounds(sw, ne);
+//                // Location location = lastKnownLocation2.getResult();
+//                LatLng currLoc = new LatLng(location.getLatitude(), location.getLongitude());
+//                // LatLng currLoc = new LatLng(35.5, -118);
+//
+//                if (curScreen.contains(currLoc)) {
+//                    result[0] = true;
+//                }
+//            }
+//        });
+//        return result[0];
     }
 
     public KmlLayer readKML() throws IOException, XmlPullParserException {

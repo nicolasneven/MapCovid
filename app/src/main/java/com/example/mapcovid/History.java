@@ -29,7 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class History extends MapsActivity {
+public class History extends AppCompatActivity {
 
     String s1[], s2[];
     RecyclerView recycler_view;
@@ -66,11 +66,10 @@ public class History extends MapsActivity {
             }
         });
 
-        //SharedPreferences preferences = getSharedPreferences("history", Context.MODE_PRIVATE);
-        //boolean isChecked = preferences.getBoolean("historyloc", false);
+        //SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        boolean isChecked = MapsActivity.getCB();
 
-
-        if(!getCB()) {
+        if(!isChecked) {
             Intent i = new Intent(getApplicationContext(), PopActivity.class);
             startActivity(i);
         }
