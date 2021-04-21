@@ -286,28 +286,14 @@ public class MapsActivity extends AppCompatActivity
         //CancellationToken cancelledToken = null;
         //lastKnownLocation2 = fusedLocationClient.getCurrentLocation(1, cancelledToken);
         //boolean inside;
-       // try {
+        // try {
         //    lastKnownLocation = lastKnownLocation2.getResult();
 
         //} catch (IllegalStateException exception) {
-          //  return;
+        //  return;
         //}
-        lastKnownLocation2 = fusedLocationClient.getLastLocation();
-        lastKnownLocation2.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                location = lastKnownLocation2.getResult();
-                System.out.println("THIS IS A DRILL");
-                Location.distanceBetween(expo.getPosition().latitude, expo.getPosition().longitude, location.getLatitude(), location.getLongitude(), distance);
 
-                if (distance[0] > 60) {
-                    TextView txtView = (TextView) findViewById(R.id.warningText);
-                    txtView.setVisibility(View.VISIBLE);
-                }
-            }
-        });
         System.out.println("DREAMS");
-
 
 
     }
@@ -318,9 +304,9 @@ public class MapsActivity extends AppCompatActivity
         LatLng sw = new LatLng(33.4233, -118.58);
 
         LatLngBounds curScreen = new LatLngBounds(sw, ne);
-        Location location = lastKnownLocation2.getResult();
-        LatLng currLoc = new LatLng(location.getLatitude(), location.getLongitude());
-        //LatLng currLoc = new LatLng(35.5, -118);
+        // Location location = lastKnownLocation2.getResult();
+        // LatLng currLoc = new LatLng(location.getLatitude(), location.getLongitude());
+        LatLng currLoc = new LatLng(35.5, -118);
         boolean cb2 = false;
         cb2 = curScreen.contains(currLoc);
 
@@ -386,6 +372,40 @@ public class MapsActivity extends AppCompatActivity
         // getDeviceLocation();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
+        // getLocationPermission();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            // return TODO;
+        }
+        float[] distance = new float[2];
+        lastKnownLocation2 = fusedLocationClient.getLastLocation();
+        lastKnownLocation2.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                location = lastKnownLocation2.getResult();
+                System.out.println("THIS IS A DRILL");
+                // Location.distanceBetween(expo.getPosition().latitude, expo.getPosition().longitude, location.getLatitude(), location.getLongitude(), distance);
+
+                LatLng ne = new LatLng(34.4921, -117.4003);
+                LatLng sw = new LatLng(33.4233, -118.58);
+
+                LatLngBounds curScreen = new LatLngBounds(sw, ne);
+                // Location location = lastKnownLocation2.getResult();
+                LatLng currLoc = new LatLng(location.getLatitude(), location.getLongitude());
+                // LatLng currLoc = new LatLng(35.5, -118);
+
+                if (!curScreen.contains(currLoc)) {
+                    TextView txtView = (TextView) findViewById(R.id.warningText);
+                    txtView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         return false;
     }
 
