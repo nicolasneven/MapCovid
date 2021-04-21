@@ -27,17 +27,20 @@
         android:background="#AAA"
         android:text="RECENTER"
         android:onClick="sendMessage" />
+
     <TextView
         android:id="@+id/warningText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/fragment_layout"
         android:background="#AAA"
-        android:text="Warning: you are out of Los Angeles /n service availability may not be available"
         android:gravity="center_horizontal"
-        android:textSize="20sp"
         android:paddingTop="60dp"
-        android:visibility="invisible"
-        />
+        android:paddingRight="40dp"
+        android:paddingBottom="80dp"
+        android:text="Warning: you are out of Los Angeles /n service availability may not be available"
+        android:textSize="20sp"
+        android:visibility="invisible" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
