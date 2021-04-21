@@ -29,7 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class History extends AppCompatActivity {
+public class History extends MapsActivity {
 
     String s1[], s2[];
     RecyclerView recycler_view;
@@ -70,7 +70,7 @@ public class History extends AppCompatActivity {
         //boolean isChecked = preferences.getBoolean("historyloc", false);
 
 
-        if(!MapsActivity.getCB()) {
+        if(!getCB()) {
             Intent i = new Intent(getApplicationContext(), PopActivity.class);
             startActivity(i);
         }
