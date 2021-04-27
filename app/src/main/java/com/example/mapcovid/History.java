@@ -23,6 +23,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -43,6 +45,7 @@ public class History extends AppCompatActivity {
         // menu should be considered as top level destinations.
 
         navView.setSelectedItemId(R.id.historyicon);
+        System.out.println("AAAAAAAAA");
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -67,6 +70,7 @@ public class History extends AppCompatActivity {
         });
 
         //SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        System.out.println("BBBBBBBBBBBB");
         boolean isChecked = MapsActivity.getCB();
 
         if(!isChecked) {
@@ -76,10 +80,12 @@ public class History extends AppCompatActivity {
 
 
         recycler_view = findViewById(R.id.recycler_view);
-
+        System.out.println("CCCCCCCCCCCCCCC");
         s1 = getResources().getStringArray(R.array.locations);
         s2 = getResources().getStringArray(R.array.days);
 
+        System.out.println("Locations: " + s1[0]);
+        System.out.println("Days: " + s2[0]);
         MyAdapter myAdapter = new MyAdapter(this, s1, s2);
         recycler_view.setAdapter(myAdapter);
         recycler_view.setLayoutManager(new LinearLayoutManager(this));
