@@ -64,11 +64,23 @@ public class MediaActivity extends AppCompatActivity {
         weatherIcons = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/weathericons.ttf");
         city = (TextView)findViewById(R.id.city_field);
         update = (TextView)findViewById(R.id.updated_field);
+        dt = (TextView)findViewById(R.id.details_field);
+        currentTemp = (TextView)findViewById(R.id.current_temperature_field);
+        humidity = (TextView)findViewById(R.id.humidity_field);
+        pressure = (TextView)findViewById(R.id.pressure_field);
+        weatherIco = (TextView)findViewById(R.id.weather_icon);
+        weatherIco.setTypeface(weatherIcons);
 
         Weather.placeIdTask asyncTask = new Weather.placeIdTask(new Weather.AsyncResponse() {
+
             public void processFinish(String weather_city, String weather_description, String weather_temperature, String weather_humidity, String weather_pressure, String weather_updatedOn, String weather_iconText, String sun_rise) {
                 city.setText(weather_city);
                 update.setText(weather_updatedOn);
+                dt.setText(weather_description);
+                currentTemp.setText(weather_temperature);
+                humidity.setText("Humidity: "+weather_humidity);
+                pressure.setText("Pressure: "+weather_pressure);
+                weatherIco.setText(Html.fromHtml(weather_iconText));
 
             }
         });

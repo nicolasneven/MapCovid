@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class Weather {
     private static final String OPEN_WEATHER_MAP_URL =
-            "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=standard";
+            "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric";
 
     private static final String OPEN_WEATHER_MAP_API = "37256071fd4ef98f221cd32804876705";
 
@@ -89,7 +89,7 @@ public class Weather {
 
                     String city = json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country");
                     String description = details.getString("description").toUpperCase(Locale.US);
-                    String temperature = String.format("%.2f", main.getDouble("temp"))+ "°";
+                    String temperature = String.format("%.2f", main.getDouble("temp")*(1.8)+32)+ "°F";
                     String humidity = main.getString("humidity") + "%";
                     String pressure = main.getString("pressure") + " hPa";
                     String updatedOn = df.format(new Date(json.getLong("dt")*1000));
