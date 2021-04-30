@@ -1,6 +1,7 @@
 package com.example.mapcovid;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.preference.PreferenceManager;
@@ -28,6 +29,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,16 +39,24 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 public class History extends AppCompatActivity {
 
-    List<Float> longnums;
-    List<Float> latnums;
+    List<String> longnums;
+    List<String> latnums;
     List<String> dates;
     RecyclerView recyclerView;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,35 +98,66 @@ public class History extends AppCompatActivity {
             startActivity(i);
         }
 
+        //read the values from location history file and add them all to the correct arrays
+
+        Context context = getApplicationContext();
+        FileInputStream fis = null;
+        try {
+            fis = context.openFileInput("locations");
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        InputStreamReader inputStreamReader = new InputStreamReader(fis, StandardCharsets.UTF_8);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try(BufferedReader reader = new BufferedReader(inputStreamReader)){
+            String line = reader.readLine();
+            while(line != null){
+                stringBuilder.append(line).append('\n');
+                line = reader.readLine();
+            }
+        }
+        catch(IOException e){
+
+        }
+        finally {
+            String contents = stringBuilder.toString();
+            String tempcontents = contents.substring(13, contents.length()-2);
+
+            JSONArray array = null;
+            try {
+                array = new JSONArray(tempcontents);
+                longnums = new ArrayList<>();
+                latnums = new ArrayList<>();
+                dates = new ArrayList<>();
+
+                for(int i=0; i < array.length(); i++)
+                {
+                    JSONObject object = array.getJSONObject(i);
+                    String tempStamp = object.getString("time");
+                    long timeStamp = Long.parseLong(tempStamp);
+                    java.util.Date time= new java.util.Date((long)timeStamp);
+                    tempStamp = time + "";
+                    longnums.add(object.getString("longitude"));
+                    latnums.add(object.getString("latitude"));
+                    dates.add(tempStamp);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         recyclerView = findViewById(R.id.RecyclerView);
-        longnums = new ArrayList<>();
-        longnums.add((float) 118.009);
-        longnums.add((float) 128.009);
-        longnums.add((float) 114.009);
-        longnums.add((float) 138.009);
-        longnums.add((float) 148.009);
-        longnums.add((float) 113.009);
 
-        latnums = new ArrayList<>();
-        latnums.add((float) 30.009);
-        latnums.add((float) 40.009);
-        latnums.add((float) 34.009);
-        latnums.add((float) 30.409);
-        latnums.add((float) 33.009);
-        latnums.add((float) 44.009);
-
-        dates = new ArrayList<>();
-        dates.add("March 26,2020");
-        dates.add("March 22,2020");
-        dates.add("March 18,2020");
-        dates.add("April 26,2020");
-        dates.add("March 8,2020");
-        dates.add("March 12,2020");
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-        CustomAdapter customAdapter = new CustomAdapter((ArrayList<Float>) longnums, (ArrayList<Float>) latnums, (ArrayList<String>) dates, History.this);
+        CustomAdapter customAdapter = new CustomAdapter((ArrayList<String>) longnums, (ArrayList<String>) latnums, (ArrayList<String>) dates, History.this);
         recyclerView.setAdapter(customAdapter);
 
         Button clearhistory = (Button) findViewById(R.id.clearhistory);
@@ -130,8 +171,18 @@ public class History extends AppCompatActivity {
                 //do layout thing again
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(linearLayoutManager);
-                CustomAdapter customAdapter = new CustomAdapter((ArrayList<Float>) longnums, (ArrayList<Float>) latnums, (ArrayList<String>) dates, History.this);
+                CustomAdapter customAdapter = new CustomAdapter((ArrayList<String>) longnums, (ArrayList<String>) latnums, (ArrayList<String>) dates, History.this);
                 recyclerView.setAdapter(customAdapter);
+
+                String filename = "locations";
+                String fileContents = "{\"locations\":[]}";
+                try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+                    fos.write(fileContents.getBytes());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

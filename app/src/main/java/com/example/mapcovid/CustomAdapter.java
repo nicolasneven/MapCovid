@@ -17,11 +17,11 @@ import java.util.ArrayList;
 public class CustomAdapter extends RecyclerView.Adapter {
 
     ArrayList<String> dates;
-    ArrayList<Float> longnums;
-    ArrayList<Float> latnums;
+    ArrayList<String> longnums;
+    ArrayList<String> latnums;
     Context context;
 
-    public CustomAdapter(ArrayList<Float> longnums, ArrayList<Float> latnums, ArrayList<String> dates, Context context){
+    public CustomAdapter(ArrayList<String> longnums, ArrayList<String> latnums, ArrayList<String> dates, Context context){
         this.longnums = longnums;
         this.dates = dates;
         this.latnums = latnums;
