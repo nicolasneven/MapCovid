@@ -1,10 +1,14 @@
 package com.example.mapcovid;
 
 import androidx.annotation.NonNull;
+import android.graphics.Typeface;
+import android.widget.TextView;
+import android.text.Html;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.AsyncTask;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
@@ -12,6 +16,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatDelegate;
 
 public class MediaActivity extends AppCompatActivity {
+
+    Typeface weatherIcons;
+    TextView city,dt,humidity,pressure, currentTemp, weatherIco, update;
     public static final String TAG = "TimeLineActivity";
 
     private static final String baseURl = "http://twitter.com";
@@ -23,6 +30,8 @@ public class MediaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media);
+
+
 
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
         // Passing each menu ID as a set of Ids because each
@@ -51,7 +60,32 @@ public class MediaActivity extends AppCompatActivity {
                 return false;
             }
         });
+        //weather shit
+        weatherIcons = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/weathericons.ttf");
+        city = (TextView)findViewById(R.id.city_field);
+        update = (TextView)findViewById(R.id.updated_field);
+        dt = (TextView)findViewById(R.id.details_field);
+        currentTemp = (TextView)findViewById(R.id.current_temperature_field);
+        humidity = (TextView)findViewById(R.id.humidity_field);
+        pressure = (TextView)findViewById(R.id.pressure_field);
+        weatherIco = (TextView)findViewById(R.id.weather_icon);
+        weatherIco.setTypeface(weatherIcons);
 
+        Weather.placeIdTask asyncTask = new Weather.placeIdTask(new Weather.AsyncResponse() {
+
+            public void processFinish(String weather_city, String weather_description, String weather_temperature, String weather_humidity, String weather_pressure, String weather_updatedOn, String weather_iconText, String sun_rise) {
+                city.setText(weather_city);
+                update.setText(weather_updatedOn);
+                dt.setText(weather_description);
+                currentTemp.setText(weather_temperature);
+                humidity.setText("Humidity: "+weather_humidity);
+                pressure.setText("Pressure: "+weather_pressure);
+                weatherIco.setText(Html.fromHtml(weather_iconText));
+
+            }
+        });
+        asyncTask.execute("34.0488","-118.2518");
+        //end of weather shit
         WebView webView = (WebView) findViewById(R.id.timeline_webview);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setJavaScriptEnabled(true);

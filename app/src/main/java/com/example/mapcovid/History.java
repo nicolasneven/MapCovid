@@ -24,8 +24,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -75,6 +80,7 @@ public class History extends AppCompatActivity {
         });
 
         //SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+
         boolean isChecked = MapsActivity.getCB();
 
         if(!isChecked) {
