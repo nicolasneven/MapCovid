@@ -47,7 +47,7 @@ public class CalendarActivity extends AppCompatActivity {
         btngocalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, CalendarActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CalendarHistory.class);
                 startActivity(intent);
             }
         });
