@@ -229,15 +229,15 @@ public class MapsActivity extends AppCompatActivity
             }
         });
         
-//        String filename = "locations";
-//        String fileContents = "{\"locations\":[{\"latitude\":34.0195,\"longitude\":-118.4912,\"time\":1619012120886},{\"latitude\":34.0736,\"longitude\":-118.4004,\"time\":1619123120886}]}";
-//        try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
-//            fos.write(fileContents.getBytes());
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        String filename = "locations";
+        String fileContents = "{\"locations\":[{\"latitude\":34.0195,\"longitude\":-118.4912,\"time\":1619012120886},{\"latitude\":34.0736,\"longitude\":-118.4004,\"time\":1619123120886}]}";
+        try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+            fos.write(fileContents.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
