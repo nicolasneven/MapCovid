@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -37,8 +38,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.maps.android.data.kml.KmlLayer;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -48,12 +54,19 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
@@ -63,6 +76,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -76,6 +90,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import android.content.pm.Signature;
 
 public class MapsActivity extends AppCompatActivity
         implements
@@ -213,6 +228,16 @@ public class MapsActivity extends AppCompatActivity
                 return false;
             }
         });
+        /*
+        String filename = "locations";
+        String fileContents = "{\"locations\":[{\"latitude\":34.0195,\"longitude\":-118.4912,\"time\":1619012120886},{\"latitude\":34.0736,\"longitude\":-118.4004,\"time\":1619123120886}]}";
+        try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+            fos.write(fileContents.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
 
     }
 
@@ -370,6 +395,7 @@ public class MapsActivity extends AppCompatActivity
         myThread.start();
         InputStream is = this.openFileInput("legend.kml");
         KmlLayer layer = new KmlLayer(map, is, getApplicationContext());
+        // KmlLayer layer = new KmlLayer(map, R.raw.legend, getApplicationContext());
         return layer;
     }
 
@@ -423,10 +449,11 @@ public class MapsActivity extends AppCompatActivity
         float[] distance = new float[2];
         lastKnownLocation2 = fusedLocationClient.getLastLocation();
         lastKnownLocation2.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onSuccess(Location location) {
                 location = lastKnownLocation2.getResult();
-                System.out.println("THIS IS A DRILL");
+                // System.out.println("THIS IS A DRILL");
                 // Location.distanceBetween(expo.getPosition().latitude, expo.getPosition().longitude, location.getLatitude(), location.getLongitude(), distance);
 
                 LatLng ne = new LatLng(34.4921, -117.4003);
@@ -440,6 +467,64 @@ public class MapsActivity extends AppCompatActivity
                 if (!curScreen.contains(currLoc)) {
                     TextView txtView = (TextView) findViewById(R.id.warningText);
                     txtView.setVisibility(View.VISIBLE);
+                } else {
+                    // append location to JSON
+                    /*
+                    JSONObject jo = new JSONObject();
+                    JSONArray ja = new JSONArray();
+                    Map m = new LinkedHashMap(2);
+                    m.put("longitude", location.getLongitude());
+                    m.put("latitude", location.getLatitude());
+                    long time = System.currentTimeMillis();
+                    m.put("time", time);
+                    ja.put(m);
+                    try {
+                        jo.put("locations", ja);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(jo.toString()); */
+                    FileInputStream fis = null;
+                    try {
+                        fis = context.openFileInput("locations");
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    InputStreamReader inputStreamReader =
+                            new InputStreamReader(fis, StandardCharsets.UTF_8);
+                    StringBuilder stringBuilder = new StringBuilder();
+                    try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
+                        String line = reader.readLine();
+                        while (line != null) {
+                            stringBuilder.append(line).append('\n');
+                            line = reader.readLine();
+                        }
+                    } catch (IOException e) {
+                        // Error occurred when opening raw file for reading.
+                    } finally {
+                        String contents = stringBuilder.toString();
+                        //System.out.println(contents);
+                        String json = contents;
+                        Gson gson = new Gson();
+                        JsonObject inputObj  = gson.fromJson(json, JsonObject.class);
+                        JsonObject newObject = new JsonObject() ;
+                        long time = System.currentTimeMillis();
+                        newObject.addProperty("latitude", location.getLatitude());
+                        newObject.addProperty("longitude", location.getLongitude());
+                        newObject.addProperty("time", time);
+                        inputObj.get("locations").getAsJsonArray().add(newObject);
+                        System.out.println(inputObj);
+                        String filename = "locations";
+                        String fileContents = inputObj.toString();
+                        try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+                            fos.write(fileContents.getBytes());
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                 }
             }
         });

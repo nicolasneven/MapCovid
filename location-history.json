@@ -1,14 +1,19 @@
 {
   "locations": [
     {
-      "longitude": "34.0224N",
-      "latitude": "118.2851W",
-      "time": "1619378562"
+      "latitude": 34.0195,
+      "longitude": -118.4912,
+      "time": 1619012120886
     },
     {
-      "longitude": "34.0149N",
-      "latitude": "118.2862W",
-      "time": "1619378730"
+      "latitude": 34.0736,
+      "longitude": -118.4004,
+      "time": 1619123120886
+    },
+    {
+      "latitude": 34.0209217,
+      "longitude": -118.2901167,
+      "time": 1619755164332
     }
   ]
 }
