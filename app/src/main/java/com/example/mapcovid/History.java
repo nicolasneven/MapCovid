@@ -55,6 +55,7 @@ public class History extends AppCompatActivity {
     List<String> latnums;
     List<String> dates;
     RecyclerView recyclerView;
+    private Button btngocalendar;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -64,6 +65,14 @@ public class History extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        btngocalendar = (Button) findViewById(R.id.btngocalendar);
+        btngocalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CalendarHistory.class);
+                startActivity(intent);
+            }
+        });
 
         navView.setSelectedItemId(R.id.historyicon);
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -88,6 +97,8 @@ public class History extends AppCompatActivity {
                 return false;
             }
         });
+
+
 
         //SharedPreferences preferences = getPreferences(MODE_PRIVATE);
 
