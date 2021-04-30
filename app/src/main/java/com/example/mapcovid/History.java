@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
@@ -23,16 +24,23 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class History extends AppCompatActivity {
 
-    String s1[], s2[];
-    RecyclerView recycler_view;
+    List<Float> longnums;
+    List<Float> latnums;
+    List<String> dates;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,14 +83,52 @@ public class History extends AppCompatActivity {
         }
 
 
-        recycler_view = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.RecyclerView);
+        longnums = new ArrayList<>();
+        longnums.add((float) 118.009);
+        longnums.add((float) 128.009);
+        longnums.add((float) 114.009);
+        longnums.add((float) 138.009);
+        longnums.add((float) 148.009);
+        longnums.add((float) 113.009);
 
-        s1 = getResources().getStringArray(R.array.locations);
-        s2 = getResources().getStringArray(R.array.days);
+        latnums = new ArrayList<>();
+        latnums.add((float) 30.009);
+        latnums.add((float) 40.009);
+        latnums.add((float) 34.009);
+        latnums.add((float) 30.409);
+        latnums.add((float) 33.009);
+        latnums.add((float) 44.009);
 
-        MyAdapter myAdapter = new MyAdapter(this, s1, s2);
-        recycler_view.setAdapter(myAdapter);
-        recycler_view.setLayoutManager(new LinearLayoutManager(this));
+        dates = new ArrayList<>();
+        dates.add("March 26,2020");
+        dates.add("March 22,2020");
+        dates.add("March 18,2020");
+        dates.add("April 26,2020");
+        dates.add("March 8,2020");
+        dates.add("March 12,2020");
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        CustomAdapter customAdapter = new CustomAdapter((ArrayList<Float>) longnums, (ArrayList<Float>) latnums, (ArrayList<String>) dates, History.this);
+        recyclerView.setAdapter(customAdapter);
+
+        Button clearhistory = (Button) findViewById(R.id.clearhistory);
+        clearhistory.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //clear all three lists
+                dates.clear();
+                latnums.clear();
+                longnums.clear();
+
+                //do layout thing again
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(linearLayoutManager);
+                CustomAdapter customAdapter = new CustomAdapter((ArrayList<Float>) longnums, (ArrayList<Float>) latnums, (ArrayList<String>) dates, History.this);
+                recyclerView.setAdapter(customAdapter);
+            }
+        });
+
     }
 
 
