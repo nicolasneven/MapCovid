@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -27,7 +29,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class CalendarHistory extends AppCompatActivity {
@@ -43,7 +48,7 @@ public class CalendarHistory extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+        setContentView(R.layout.calendar_layout);
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -121,13 +126,89 @@ public class CalendarHistory extends AppCompatActivity {
                     longnums.add(object.getString("longitude"));
                     latnums.add(object.getString("latitude"));
                     dates.add(tempStamp);
+                    System.out.println("STAMPS:" + tempStamp);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
         recyclerView = findViewById(R.id.RecyclerView);
+
+
+        CalendarView calendarView = (CalendarView)findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                List<String> newlongnums = new ArrayList<>();
+                List<String> newlatnums = new ArrayList<>();
+                List<String> newdates = new ArrayList<>();
+                String mes = "";
+                if(month == 0){
+                    mes = "Jan";
+                }
+                if(month == 1){
+                    mes = "Feb";
+                }
+                if(month == 2){
+                    mes = "Mar";
+                }
+                if(month == 3){
+                    mes = "Apr";
+                }
+                if(month == 4){
+                    mes = "May";
+                }
+                if(month == 5){
+                    mes = "Jun";
+                }
+                if(month == 6){
+                    mes = "Jul";
+                }
+                if(month == 7){
+                    mes = "Aug";
+                }
+                if(month == 8){
+                    mes = "Sep";
+                }
+                if(month == 9){
+                    mes = "Oct";
+                }
+                if(month == 10){
+                    mes = "Nov";
+                }
+                if(month == 11){
+                    mes = "Dec";
+                }
+                for(int i = 0; i < dates.size(); i++){
+                    System.out.println("MES" + mes);
+                    System.out.println("MONTH" + dates.get(i).substring(4,7));
+                    if(mes.equals(dates.get(i).substring(4,7)) && String.valueOf(dayOfMonth).equals(dates.get(i).substring(8,10))){
+                       //  && String.valueOf(year) == dates.get(i).substring(24,27)
+                        System.out.println("BEEP");
+                        newlongnums.add(longnums.get(i));
+                        newlatnums.add(latnums.get(i));
+                        newdates.add(dates.get(i));
+
+                    }
+                }
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                linearLayoutManager.setReverseLayout(true);
+                linearLayoutManager.setStackFromEnd(true);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                System.out.println("A");
+                CustomAdapter customAdapter = new CustomAdapter((ArrayList<String>) newlongnums, (ArrayList<String>) newlatnums, (ArrayList<String>) newdates, CalendarHistory.this);
+                System.out.println("B");
+                recyclerView.setAdapter(customAdapter);
+                System.out.println("C");
+
+                //TextView textView3 = findViewById(R.id.textView3);
+               // textView3.setText(year + " " + month + "" + dayOfMonth);
+
+
+            }
+        });
     }
     //end of oncreate function
+
 
 }
