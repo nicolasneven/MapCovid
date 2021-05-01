@@ -35,6 +35,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import sun.bob.mcalendarview.MCalendarView;
+import sun.bob.mcalendarview.vo.DateData;
+
 public class CalendarHistory extends AppCompatActivity {
 
     //arrays with all the tracked locations
@@ -132,8 +135,19 @@ public class CalendarHistory extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        recyclerView = findViewById(R.id.RecyclerView);
 
+        //highhlight dates that have history
+        MCalendarView calendarView2 = ((MCalendarView) findViewById(R.id.calendar2));
+
+        ArrayList<DateData> date_with_history=new ArrayList<>();
+        date_with_history.add(new DateData(2021,04,26));
+        date_with_history.add(new DateData(2021,04,27));
+
+        for(int i=0;i<date_with_history.size();i++) {
+            calendarView2.markDate(date_with_history.get(i).getYear(),date_with_history.get(i).getMonth(),date_with_history.get(i).getDay());//mark multiple dates with this code.
+        }
+
+        recyclerView = findViewById(R.id.RecyclerView);
 
         CalendarView calendarView = (CalendarView)findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
