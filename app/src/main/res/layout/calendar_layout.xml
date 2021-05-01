@@ -6,16 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    -->
 
     <sun.bob.mcalendarview.MCalendarView
         android:layout_width="400dp"
         android:layout_height="400dp"
         tools:context=".MapActivity"
-        android:id="@+id/calendar2"
+        android:id="@+id/calendarView"
         />
 
     <androidx.recyclerview.widget.RecyclerView

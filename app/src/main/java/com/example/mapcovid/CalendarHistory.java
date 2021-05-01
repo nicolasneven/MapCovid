@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 
 import sun.bob.mcalendarview.MCalendarView;
+import sun.bob.mcalendarview.listeners.OnDateClickListener;
 import sun.bob.mcalendarview.vo.DateData;
 
 public class CalendarHistory extends AppCompatActivity {
@@ -136,20 +137,105 @@ public class CalendarHistory extends AppCompatActivity {
             }
         }
 
-        //highhlight dates that have history
-        MCalendarView calendarView2 = ((MCalendarView) findViewById(R.id.calendar2));
+        //highlight dates that have history
+        MCalendarView calendarView = ((MCalendarView) findViewById(R.id.calendarView));
 
         ArrayList<DateData> date_with_history=new ArrayList<>();
         date_with_history.add(new DateData(2021,04,26));
         date_with_history.add(new DateData(2021,04,27));
 
         for(int i=0;i<date_with_history.size();i++) {
-            calendarView2.markDate(date_with_history.get(i).getYear(),date_with_history.get(i).getMonth(),date_with_history.get(i).getDay());//mark multiple dates with this code.
+            calendarView.markDate(date_with_history.get(i).getYear(),date_with_history.get(i).getMonth(),date_with_history.get(i).getDay());
         }
 
+        //display locations for a specific date
         recyclerView = findViewById(R.id.RecyclerView);
 
-        CalendarView calendarView = (CalendarView)findViewById(R.id.calendarView);
+        //Commented the following line out because calendarView is now declared on line 140
+        //CalendarView calendarView = (CalendarView)findViewById(R.id.calendarView);
+
+        calendarView.setOnDateClickListener(new OnDateClickListener() {
+            @Override
+            public void onDateClick(View view, DateData date) {
+                int year = date.getYear();
+                int month = date.getMonth();
+                int dayOfMonth = date.getDay();
+
+                onSelectedDayChange((CalendarView) view,year,month,dayOfMonth);
+            }
+
+
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                List<String> newlongnums = new ArrayList<>();
+                List<String> newlatnums = new ArrayList<>();
+                List<String> newdates = new ArrayList<>();
+                String mes = "";
+                if(month == 0){
+                    mes = "Jan";
+                }
+                if(month == 1){
+                    mes = "Feb";
+                }
+                if(month == 2){
+                    mes = "Mar";
+                }
+                if(month == 3){
+                    mes = "Apr";
+                }
+                if(month == 4){
+                    mes = "May";
+                }
+                if(month == 5){
+                    mes = "Jun";
+                }
+                if(month == 6){
+                    mes = "Jul";
+                }
+                if(month == 7){
+                    mes = "Aug";
+                }
+                if(month == 8){
+                    mes = "Sep";
+                }
+                if(month == 9){
+                    mes = "Oct";
+                }
+                if(month == 10){
+                    mes = "Nov";
+                }
+                if(month == 11){
+                    mes = "Dec";
+                }
+                for(int i = 0; i < dates.size(); i++){
+                    System.out.println("MES" + mes);
+                    System.out.println("MONTH" + dates.get(i).substring(4,7));
+                    if(mes.equals(dates.get(i).substring(4,7)) && String.valueOf(dayOfMonth).equals(dates.get(i).substring(8,10))){
+                        //  && String.valueOf(year) == dates.get(i).substring(24,27)
+                        System.out.println("BEEP");
+                        newlongnums.add(longnums.get(i));
+                        newlatnums.add(latnums.get(i));
+                        newdates.add(dates.get(i));
+
+                    }
+                }
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                linearLayoutManager.setReverseLayout(true);
+                linearLayoutManager.setStackFromEnd(true);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                System.out.println("A");
+                CustomAdapter customAdapter = new CustomAdapter((ArrayList<String>) newlongnums, (ArrayList<String>) newlatnums, (ArrayList<String>) newdates, CalendarHistory.this);
+                System.out.println("B");
+                recyclerView.setAdapter(customAdapter);
+                System.out.println("C");
+
+                //TextView textView3 = findViewById(R.id.textView3);
+                // textView3.setText(year + " " + month + "" + dayOfMonth);
+
+
+            }
+        });
+
+        /* original function before change
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -221,6 +307,7 @@ public class CalendarHistory extends AppCompatActivity {
 
             }
         });
+        */
     }
     //end of oncreate function
 
