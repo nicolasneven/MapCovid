@@ -161,55 +161,63 @@ public class CalendarHistory extends AppCompatActivity {
                 int month = date.getMonth();
                 int dayOfMonth = date.getDay();
 
-                onSelectedDayChange((CalendarView) view,year,month,dayOfMonth);
+                onSelectedDayChange(view,year,month,dayOfMonth);
             }
 
 
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+            public void onSelectedDayChange(@NonNull View view, int year, int month, int dayOfMonth) {
                 List<String> newlongnums = new ArrayList<>();
                 List<String> newlatnums = new ArrayList<>();
                 List<String> newdates = new ArrayList<>();
+
                 String mes = "";
-                if(month == 0){
+                if(month == 1){
                     mes = "Jan";
                 }
-                if(month == 1){
+                if(month == 2){
                     mes = "Feb";
                 }
-                if(month == 2){
+                if(month == 3){
                     mes = "Mar";
                 }
-                if(month == 3){
+                if(month == 4){
                     mes = "Apr";
                 }
-                if(month == 4){
+                if(month == 5){
                     mes = "May";
                 }
-                if(month == 5){
+                if(month == 6){
                     mes = "Jun";
                 }
-                if(month == 6){
+                if(month == 7){
                     mes = "Jul";
                 }
-                if(month == 7){
+                if(month == 8){
                     mes = "Aug";
                 }
-                if(month == 8){
+                if(month == 9){
                     mes = "Sep";
                 }
-                if(month == 9){
+                if(month == 10){
                     mes = "Oct";
                 }
-                if(month == 10){
+                if(month == 11){
                     mes = "Nov";
                 }
-                if(month == 11){
+                if(month == 12){
                     mes = "Dec";
                 }
                 for(int i = 0; i < dates.size(); i++){
                     System.out.println("MES" + mes);
                     System.out.println("MONTH" + dates.get(i).substring(4,7));
-                    if(mes.equals(dates.get(i).substring(4,7)) && String.valueOf(dayOfMonth).equals(dates.get(i).substring(8,10))){
+
+                    String day = String.valueOf(dayOfMonth);
+                    if(day.length() == 1){
+                        day = "0" + day;
+                    }
+                    System.out.println("DAY" + day);
+                    System.out.println("DIA" + dates.get(i).substring(8,10));
+                    if(mes.equals(dates.get(i).substring(4,7)) && day.equals(dates.get(i).substring(8,10))){
                         //  && String.valueOf(year) == dates.get(i).substring(24,27)
                         System.out.println("BEEP");
                         newlongnums.add(longnums.get(i));
