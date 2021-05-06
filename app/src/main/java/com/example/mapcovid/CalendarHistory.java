@@ -141,8 +141,56 @@ public class CalendarHistory extends AppCompatActivity {
         MCalendarView calendarView = ((MCalendarView) findViewById(R.id.calendarView));
 
         ArrayList<DateData> date_with_history=new ArrayList<>();
-        date_with_history.add(new DateData(2021,04,26));
-        date_with_history.add(new DateData(2021,04,27));
+        //date_with_history.add(new DateData(2021,04,26));
+        //date_with_history.add(new DateData(2021,04,27));
+
+        //add dates that are in the JSON
+        for (int i = 0; i < dates.size(); i++) {
+            System.out.println(dates.get(i));
+            int year = 2021;
+            int month = 0;
+            String month_string = dates.get(i).substring(4,7);
+            if(month_string == "Jan"){
+                month = 1;
+            }
+            if(month_string == "Feb"){
+                month = 2;
+            }
+            if(month_string == "Mar"){
+                month = 3;
+            }
+            if(month_string == "Apr"){
+                month = 4;
+            }
+            if(month_string == "May"){
+                month = 5;
+            }
+            if(month_string == "Jun"){
+                month = 6;
+            }
+            if(month_string == "Jul"){
+                month = 7;
+            }
+            if(month_string == "Aug"){
+                month = 8;
+            }
+            if(month_string == "Sep"){
+                month = 9;
+            }
+            if(month_string == "Oct"){
+                month = 10;
+            }
+            if(month_string == "Nov"){
+                month = 11;
+            }
+            if(month_string == "Dec"){
+                month = 12;
+            }
+
+            String day_string = dates.get(i).substring(8,10);
+            int day = Integer.parseInt(day_string);
+            date_with_history.add(new DateData(year,month,day));
+        }
 
         for(int i=0;i<date_with_history.size();i++) {
             calendarView.markDate(date_with_history.get(i).getYear(),date_with_history.get(i).getMonth(),date_with_history.get(i).getDay());
