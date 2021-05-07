@@ -1,6 +1,8 @@
 package com.example.mapcovid;
 
 import androidx.annotation.NonNull;
+
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.widget.TextView;
 import android.text.Html;
@@ -12,6 +14,9 @@ import android.os.AsyncTask;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import android.app.Activity;
+import android.widget.Toast;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -60,6 +65,13 @@ public class MediaActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        if(CheckNetwork.isInternetAvailable(MediaActivity.this)) //returns true if internet available
+        {}
+        else
+        {
+            Toast.makeText(MediaActivity.this,"No Internet Connection", Toast.LENGTH_LONG).show();
+        }
         //weather shit
         weatherIcons = Typeface.createFromAsset(getApplicationContext().getAssets(), "fonts/weathericons.ttf");
         city = (TextView)findViewById(R.id.city_field);
@@ -81,6 +93,15 @@ public class MediaActivity extends AppCompatActivity {
                 humidity.setText("Humidity: "+weather_humidity);
                 pressure.setText("Pressure: "+weather_pressure);
                 weatherIco.setText(Html.fromHtml(weather_iconText));
+                if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES) {
+                    city.setTextColor(Color.WHITE);
+                    update.setTextColor(Color.WHITE);
+                    dt.setTextColor(Color.WHITE);
+                    currentTemp.setTextColor(Color.WHITE);
+                    humidity.setTextColor(Color.WHITE);
+                    pressure.setTextColor(Color.WHITE);
+                    weatherIco.setTextColor(Color.WHITE);
+                }
 
             }
         });
