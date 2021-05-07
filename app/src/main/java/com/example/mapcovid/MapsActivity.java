@@ -228,9 +228,11 @@ public class MapsActivity extends AppCompatActivity
                 return false;
             }
         });
-        
+
+
         String filename = "locations";
-        String fileContents = "{\"locations\":[{\"latitude\":34.0195,\"longitude\":-118.4912,\"time\":1619012120886},{\"latitude\":34.0736,\"longitude\":-118.4004,\"time\":1619123120886}]}";
+        String fileContents = "{\"locations\":[]}";
+        // String fileContents = "{\"locations\":[{\"latitude\":34.0195,\"longitude\":-118.4912,\"time\":1619012120886},{\"latitude\":34.0736,\"longitude\":-118.4004,\"time\":1619123120886}]}";
         try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
             fos.write(fileContents.getBytes());
         } catch (FileNotFoundException e) {
@@ -330,10 +332,13 @@ public class MapsActivity extends AppCompatActivity
         LatLng ne = new LatLng(34.4921, -117.4003);
         LatLng sw = new LatLng(33.4233, -118.58);
 
+        LatLng currLoc = new LatLng(34.02024, -118.28083);
         LatLngBounds curScreen = new LatLngBounds(sw, ne);
-        Location location = lastKnownLocation2.getResult();
-        LatLng currLoc = new LatLng(location.getLatitude(), location.getLongitude());
-        //LatLng currLoc = new LatLng(35.5, -118);
+        if (lastKnownLocation2 != null) {
+            Location location = lastKnownLocation2.getResult();
+            currLoc = new LatLng(location.getLatitude(), location.getLongitude());
+        }
+
         boolean cb2 = false;
         cb2 = curScreen.contains(currLoc);
 
