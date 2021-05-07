@@ -141,8 +141,8 @@ public class CalendarHistory extends AppCompatActivity {
         MCalendarView calendarView = ((MCalendarView) findViewById(R.id.calendarView));
 
         ArrayList<DateData> date_with_history=new ArrayList<>();
-        //date_with_history.add(new DateData(2021,04,26));
-        //date_with_history.add(new DateData(2021,04,27));
+        date_with_history.add(new DateData(2021,04,21));
+        date_with_history.add(new DateData(2021,04,22));
 
         //add dates that are in the JSON
         for (int i = 0; i < dates.size(); i++) {
