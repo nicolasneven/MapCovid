@@ -141,49 +141,48 @@ public class CalendarHistory extends AppCompatActivity {
         MCalendarView calendarView = ((MCalendarView) findViewById(R.id.calendarView));
 
         ArrayList<DateData> date_with_history=new ArrayList<>();
-        date_with_history.add(new DateData(2021,04,21));
-        date_with_history.add(new DateData(2021,04,22));
 
         //add dates that are in the JSON
         for (int i = 0; i < dates.size(); i++) {
-            System.out.println(dates.get(i));
-            int year = 2021;
+            String year_string = dates.get(i).substring(24,28);
+            int year = Integer.parseInt(year_string);
+
             int month = 0;
-            String month_string = dates.get(i).substring(4,7);
-            if(month_string == "Jan"){
+            String month_string = dates.get(i).substring(4,7).trim();
+            if(month_string.equals("Jan")){
                 month = 1;
             }
-            if(month_string == "Feb"){
+            if(month_string.equals("Feb")){
                 month = 2;
             }
-            if(month_string == "Mar"){
+            if(month_string.equals("Mar")){
                 month = 3;
             }
-            if(month_string == "Apr"){
+            if(month_string.equals("Apr")){
                 month = 4;
             }
-            if(month_string == "May"){
+            if(month_string.equals("May")){
                 month = 5;
             }
-            if(month_string == "Jun"){
+            if(month_string.equals("Jun")){
                 month = 6;
             }
-            if(month_string == "Jul"){
+            if(month_string.equals("Jul")){
                 month = 7;
             }
-            if(month_string == "Aug"){
+            if(month_string.equals("Aug")){
                 month = 8;
             }
-            if(month_string == "Sep"){
+            if(month_string.equals("Sep")){
                 month = 9;
             }
-            if(month_string == "Oct"){
+            if(month_string.equals("Oct")){
                 month = 10;
             }
-            if(month_string == "Nov"){
+            if(month_string.equals("Nov")){
                 month = 11;
             }
-            if(month_string == "Dec"){
+            if(month_string.equals("Dec")){
                 month = 12;
             }
 
@@ -256,18 +255,12 @@ public class CalendarHistory extends AppCompatActivity {
                     mes = "Dec";
                 }
                 for(int i = 0; i < dates.size(); i++){
-                    System.out.println("MES" + mes);
-                    System.out.println("MONTH" + dates.get(i).substring(4,7));
-
                     String day = String.valueOf(dayOfMonth);
                     if(day.length() == 1){
                         day = "0" + day;
                     }
-                    System.out.println("DAY" + day);
-                    System.out.println("DIA" + dates.get(i).substring(8,10));
                     if(mes.equals(dates.get(i).substring(4,7)) && day.equals(dates.get(i).substring(8,10))){
                         //  && String.valueOf(year) == dates.get(i).substring(24,27)
-                        System.out.println("BEEP");
                         newlongnums.add(longnums.get(i));
                         newlatnums.add(latnums.get(i));
                         newdates.add(dates.get(i));
@@ -278,11 +271,8 @@ public class CalendarHistory extends AppCompatActivity {
                 linearLayoutManager.setReverseLayout(true);
                 linearLayoutManager.setStackFromEnd(true);
                 recyclerView.setLayoutManager(linearLayoutManager);
-                System.out.println("A");
                 CustomAdapter customAdapter = new CustomAdapter((ArrayList<String>) newlongnums, (ArrayList<String>) newlatnums, (ArrayList<String>) newdates, CalendarHistory.this);
-                System.out.println("B");
                 recyclerView.setAdapter(customAdapter);
-                System.out.println("C");
 
                 //TextView textView3 = findViewById(R.id.textView3);
                 // textView3.setText(year + " " + month + "" + dayOfMonth);
