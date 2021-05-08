@@ -21,9 +21,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.Switch;
 
 import android.widget.TextView;
@@ -54,6 +57,7 @@ public class History extends AppCompatActivity {
     List<String> longnums;
     List<String> latnums;
     List<String> dates;
+    List<String> unixval;
     RecyclerView recyclerView;
     private Button btngocalendar;
 
@@ -112,6 +116,94 @@ public class History extends AppCompatActivity {
         //read the values from location history file and add them all to the correct arrays
 
         Context context = getApplicationContext();
+        displayLocations(context);
+
+        Spinner dropdown = findViewById(R.id.spinner1);
+
+
+        //onclick the one you want to delete:
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(parent.getItemAtPosition(position).equals("Select a date to delete")){
+                    //do nothing
+                }
+                else{
+                    //show confirmation if possible
+                    //find the associated unixval
+                    //rewrite the file with the one less location
+                    String filename = "locations";
+                    String fileContents = "{\"locations\":[";
+                    for(int i=0; i<dates.size(); i++){
+                        if (i != position-1) {
+                            fileContents += "{\"latitude\":" + latnums.get(i) + ",\"longitude\":" + longnums.get(i) + ",\"time\":" + unixval.get(i) +"}";
+                            if (i != dates.size()-1 && position != dates.size()){
+                                fileContents += ",";
+                            }
+                            else if(i != dates.size()-2 && position == dates.size()){
+                                fileContents += ",";
+                            }
+                        }
+                    }
+                    fileContents += "]}";
+                    try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+                        fos.write(fileContents.getBytes());
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    //read file again and display history again
+                    //redisplay the dropdown
+                    displayLocations(context);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        Button clearhistory = (Button) findViewById(R.id.clearhistory);
+        clearhistory.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //clear all three lists
+                dates.clear();
+                latnums.clear();
+                longnums.clear();
+                unixval.clear();
+
+                //do layout thing again
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+                recyclerView.setLayoutManager(linearLayoutManager);
+                CustomAdapter customAdapter = new CustomAdapter((ArrayList<String>) longnums, (ArrayList<String>) latnums, (ArrayList<String>) dates, History.this);
+                recyclerView.setAdapter(customAdapter);
+
+                Spinner dropdown = findViewById(R.id.spinner1);
+                String items[] = new String[dates.size()+1];
+                items[0] = "Select a date to delete";
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, items);
+                dropdown.setAdapter(adapter);
+
+                String filename = "locations";
+                String fileContents = "{\"locations\":[]}";
+                try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+                    fos.write(fileContents.getBytes());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void displayLocations(Context context){
         FileInputStream fis = null;
         try {
             fis = context.openFileInput("locations");
@@ -143,11 +235,13 @@ public class History extends AppCompatActivity {
                 longnums = new ArrayList<>();
                 latnums = new ArrayList<>();
                 dates = new ArrayList<>();
+                unixval = new ArrayList<>();
 
                 for(int i=0; i < array.length(); i++)
                 {
                     JSONObject object = array.getJSONObject(i);
                     String tempStamp = object.getString("time");
+                    unixval.add(tempStamp);
                     long timeStamp = Long.parseLong(tempStamp);
                     java.util.Date time= new java.util.Date((long)timeStamp);
                     tempStamp = time + "";
@@ -161,6 +255,16 @@ public class History extends AppCompatActivity {
         }
 
 
+        Spinner dropdown = findViewById(R.id.spinner1);
+        String items[] = new String[dates.size()+1];
+        items[0] = "Select a date to delete";
+        for(int j =1;j<=dates.size();j++){
+            items[j] = dates.get(j-1);
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapter);
+
         recyclerView = findViewById(R.id.RecyclerView);
 
 
@@ -171,33 +275,9 @@ public class History extends AppCompatActivity {
         CustomAdapter customAdapter = new CustomAdapter((ArrayList<String>) longnums, (ArrayList<String>) latnums, (ArrayList<String>) dates, History.this);
         recyclerView.setAdapter(customAdapter);
 
-        Button clearhistory = (Button) findViewById(R.id.clearhistory);
-        clearhistory.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //clear all three lists
-                dates.clear();
-                latnums.clear();
-                longnums.clear();
-
-                //do layout thing again
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-                recyclerView.setLayoutManager(linearLayoutManager);
-                CustomAdapter customAdapter = new CustomAdapter((ArrayList<String>) longnums, (ArrayList<String>) latnums, (ArrayList<String>) dates, History.this);
-                recyclerView.setAdapter(customAdapter);
-
-                String filename = "locations";
-                String fileContents = "{\"locations\":[]}";
-                try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
-                    fos.write(fileContents.getBytes());
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
     }
+
+
 
 
 }

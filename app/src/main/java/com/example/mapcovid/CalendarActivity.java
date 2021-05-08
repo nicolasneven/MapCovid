@@ -37,12 +37,12 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        thedate = (TextView) findViewById(R.id.date);
+//        thedate = (TextView) findViewById(R.id.date);
         btngocalendar = (Button) findViewById(R.id.btngocalendar);
 
-        Intent incoming = getIntent();
-        String date = incoming.getStringExtra("date");
-        thedate.setText(date);
+//        Intent incoming = getIntent();
+//        String date = incoming.getStringExtra("date");
+//        thedate.setText(date);
 
         btngocalendar.setOnClickListener(new View.OnClickListener() {
             @Override
