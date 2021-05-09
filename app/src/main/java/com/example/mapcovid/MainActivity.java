@@ -1,7 +1,13 @@
 package com.example.mapcovid;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -12,6 +18,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 /*
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //create notification channel
+        //createNotificationChannel("234");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -62,6 +81,28 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        /*
+        //the Date and time at which you want to execute
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = dateFormatter.parse("2021-05-08 10:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        //Now create the time and schedule it
+        Timer timer = new Timer();
+
+        //Use this if you want to execute it once
+        timer.schedule(new MyTimeTask(), date);
+
+        //Use this if you want to execute it repeatedly
+        int period = 86400000;//1 day in milliseconds
+        timer.schedule(new MyTimeTask(), date, period );
+         */
+
     }
 
     private void showStartDialog() {
@@ -80,6 +121,47 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("firstStart", false);
         editor.apply();
+    }
+
+    private class MyTimeTask extends TimerTask {
+
+        public void run() {
+            String CHANNEL_ID = "234";
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), 0);
+
+            Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                    .setSmallIcon(R.drawable.notification)
+                    .setContentTitle("10AM Test Notification")
+                    .setContentText("Its 10 AM!")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
+                    .setSound(soundUri);
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+            int notificationId = 1;
+            // notificationId is a unique int for each notification that you must define
+            notificationManager.notify(notificationId, builder.build());
+        }
+    }
+
+    private void createNotificationChannel(String CHANNEL_ID) {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notification Channel";
+            String description = "Channel for Notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
 }

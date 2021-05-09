@@ -18,6 +18,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -218,6 +220,8 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(), 0);
 
+                Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                         .setSmallIcon(R.drawable.notification)
                         .setContentTitle("MapCovid Test Notification")
@@ -226,7 +230,8 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         // Set the intent that will fire when the user taps the notification
                         .setContentIntent(pendingIntent)
-                        .setAutoCancel(true);
+                        .setAutoCancel(true)
+                        .setSound(soundUri);
 
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
                 int notificationId = 0;
