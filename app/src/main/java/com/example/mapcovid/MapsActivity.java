@@ -560,6 +560,8 @@ public class MapsActivity extends AppCompatActivity
                     Toast.makeText(MapsActivity.this, "Harvard Heights\nCases: 2588\nDeaths: 71", Toast.LENGTH_LONG).show();
                 } else if (pu.contains(currLoc)) {
                     Toast.makeText(MapsActivity.this, "Pico Union\nCases: 7095\nDeaths: 232", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(MapsActivity.this, "No Covid Location\nData Available", Toast.LENGTH_LONG).show();
                 }
 
             }
