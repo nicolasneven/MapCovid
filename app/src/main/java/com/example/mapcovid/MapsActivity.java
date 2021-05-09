@@ -244,6 +244,12 @@ public class MapsActivity extends AppCompatActivity
                 e.printStackTrace();
             }
         }
+        String filePath = Environment.getExternalStorageDirectory() + "/Download" + "/logcat.txt";
+        try {
+            Runtime.getRuntime().exec(new String[]{"logcat", "-f", filePath, "MyAppTAG:V", "*:D"});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
