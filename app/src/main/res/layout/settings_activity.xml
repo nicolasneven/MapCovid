@@ -72,6 +72,11 @@
             android:textColor="@color/white"
             android:textSize="20dp" />
 
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/clearall"
             android:layout_width="match_parent"

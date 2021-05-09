@@ -26,9 +26,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.view.View.OnClickListener;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -134,6 +136,26 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
 
         toggleDark = (Switch) findViewById(R.id.switch3);
         toggleDark.toggle();
+
+
+
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+        //String[] items = new String[]{"BLUE", "PINK"};
+        // Create an ArrayAdapter using the string array and a default spinner layout
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.planets_array, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+
+
+
+
+
 
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
