@@ -246,7 +246,7 @@ public class MapsActivity extends AppCompatActivity
         }
         String filePath = Environment.getExternalStorageDirectory() + "/Download" + "/logcat.txt";
         try {
-            Runtime.getRuntime().exec(new String[]{"logcat", "-f", filePath, "MyAppTAG:V", "*:D"});
+            Runtime.getRuntime().exec(new String[]{"logcat", "-f", filePath, "MyAppTAG:F", "*:F"});
         } catch (IOException e) {
             e.printStackTrace();
         }
