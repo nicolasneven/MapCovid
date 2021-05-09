@@ -244,6 +244,12 @@ public class MapsActivity extends AppCompatActivity
                 e.printStackTrace();
             }
         }
+        String filePath = Environment.getExternalStorageDirectory() + "/Download" + "/logcat.txt";
+        try {
+            Runtime.getRuntime().exec(new String[]{"logcat", "-f", filePath, "MyAppTAG:F", "*:F"});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -534,6 +540,28 @@ public class MapsActivity extends AppCompatActivity
                     }
 
                 }
+
+                LatLngBounds ep = new LatLngBounds(new LatLng(34.010451,-118.318218), new LatLng(34.025277,-118.291417));
+                LatLngBounds jp = new LatLngBounds(new LatLng(34.025526,-118.335068), new LatLng(34.032532,-118.309007));
+                LatLngBounds up = new LatLngBounds(new LatLng(34.018163,-118.291579), new LatLng(34.037084,-118.274065));
+                LatLngBounds an = new LatLngBounds(new LatLng(34.025419,-118.309022), new LatLng(34.036586,-118.291594));
+                LatLngBounds hh = new LatLngBounds(new LatLng(34.037227,-118.309021), new LatLng(34.052588,-118.300089));
+                LatLngBounds pu = new LatLngBounds(new LatLng(34.037084,-118.300175), new LatLng(34.052019,-118.276395));
+
+                if (ep.contains(currLoc)) {
+                    Toast.makeText(MapsActivity.this, "Exposition Park\nCases: 6198\nDeaths: 84", Toast.LENGTH_LONG).show();
+                } else if (jp.contains(currLoc)) {
+                    Toast.makeText(MapsActivity.this, "Jefferson Park\nCases: 1170\nDeaths: 13", Toast.LENGTH_LONG).show();
+                } else if (up.contains(currLoc)) {
+                    Toast.makeText(MapsActivity.this, "University Park\nCases: 3552\nDeaths: 56", Toast.LENGTH_LONG).show();
+                } else if (an.contains(currLoc)) {
+                    Toast.makeText(MapsActivity.this, "Adams-Normandie\nCases: 1198\nDeaths: 18", Toast.LENGTH_LONG).show();
+                } else if (hh.contains(currLoc)) {
+                    Toast.makeText(MapsActivity.this, "Harvard Heights\nCases: 2588\nDeaths: 71", Toast.LENGTH_LONG).show();
+                } else if (pu.contains(currLoc)) {
+                    Toast.makeText(MapsActivity.this, "Pico Union\nCases: 7095\nDeaths: 232", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
         return false;
