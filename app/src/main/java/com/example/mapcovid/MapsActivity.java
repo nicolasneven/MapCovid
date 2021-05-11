@@ -1,5 +1,9 @@
 package com.example.mapcovid;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -65,6 +69,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -145,6 +151,9 @@ public class MapsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        //create notification channel
+        createNotificationChannel("234");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
@@ -250,6 +259,67 @@ public class MapsActivity extends AppCompatActivity
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        /*
+        Context context = getApplicationContext();
+
+        AlarmManager alarmMgr;
+        PendingIntent alarmIntent;
+
+        alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, MapsActivity.class);
+        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+        // Set the alarm to start at 10 a.m.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+
+        // With setInexactRepeating(), you have to use one of the AlarmManager interval
+        // constants--in this case, AlarmManager.INTERVAL_DAY.
+        alarmMgr.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, alarmIntent);
+         */
+
+        Intent intent = new Intent(MapsActivity.this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MapsActivity.this, 0, intent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        //long timeAtButtonClick = System.currentTimeMillis();
+        //long tenSecondsInMillis = 1000 * 10;
+        //alarmManager.set(AlarmManager.RTC_WAKEUP, timeAtButtonClick + tenSecondsInMillis, pendingIntent);
+
+        // Set the alarm to start at 10 a.m.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 00);
+        calendar.set(Calendar.SECOND, 1);
+
+        /*
+        if (calendar.before(Calendar.getInstance())) {
+            System.out.println("FUCK THIS");
+            calendar.add(Calendar.DATE, 1);
+        }
+         */
+
+        if (calendar.getTime().compareTo(new Date()) < 0) {
+            System.out.println("FUCK THIS");
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        System.out.println("FUCK");
+        System.out.println(Calendar.getInstance());
+        System.out.println(calendar.getTimeInMillis());
+
+        long timeAtOpen = System.currentTimeMillis();
+        long timeUntilTen = calendar.getTimeInMillis() - System.currentTimeMillis();
+
+        System.out.println(timeUntilTen);
+
+        //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, timeAtOpen + timeUntilTen, pendingIntent);
     }
 
     @Override
@@ -787,6 +857,22 @@ public class MapsActivity extends AppCompatActivity
         }
 
         return true;
+    }
+
+    private void createNotificationChannel(String CHANNEL_ID) {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notification Channel";
+            String description = "Channel for Notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
 
