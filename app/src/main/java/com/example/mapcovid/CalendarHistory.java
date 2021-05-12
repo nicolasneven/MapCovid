@@ -113,6 +113,8 @@ public class CalendarHistory extends AppCompatActivity {
         finally {
             String contents = stringBuilder.toString();
             String tempcontents = contents.substring(13, contents.length()-2);
+            int dayHistory = SettingsActivity.getHistoryDay();
+
 
             JSONArray array = null;
             try {
@@ -123,14 +125,20 @@ public class CalendarHistory extends AppCompatActivity {
 
                 for(int i=0; i < array.length(); i++) {
                     JSONObject object = array.getJSONObject(i);
+                    long cutoff = System.currentTimeMillis() - (86400000 * (dayHistory+1));
                     String tempStamp = object.getString("time");
-                    long timeStamp = Long.parseLong(tempStamp);
-                    java.util.Date time= new java.util.Date((long)timeStamp);
-                    tempStamp = time + "";
-                    longnums.add(object.getString("longitude"));
-                    latnums.add(object.getString("latitude"));
-                    dates.add(tempStamp);
-                    System.out.println("STAMPS:" + tempStamp);
+                    long tempStamp2 = Long.parseLong(tempStamp);
+                    if( tempStamp2 < cutoff){
+                        System.out.println("");
+                    } else {
+                        long timeStamp = Long.parseLong(tempStamp);
+                        java.util.Date time = new java.util.Date((long) timeStamp);
+                        tempStamp = time + "";
+                        longnums.add(object.getString("longitude"));
+                        latnums.add(object.getString("latitude"));
+                        dates.add(tempStamp);
+                        System.out.println("STAMPS:" + tempStamp);
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

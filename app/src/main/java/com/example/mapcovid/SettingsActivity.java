@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -51,6 +52,7 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
     ValueAnimator mAnimator;
     private Switch toggleDark;
     public boolean isDark = false;
+    public static int daysHistory = 21;
 
 
     /* Following code was used for white box tests
@@ -304,8 +306,46 @@ public class SettingsActivity extends AppCompatActivity implements OnClickListen
         String display_storage = "MapCovid takes up " + a + " MB";
         TextView txtView = (TextView) findViewById(R.id.Storage);
         txtView.setText(display_storage);
+
+
+
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String day = parent.getItemAtPosition(position).toString();
+                System.out.println("DAY SELECTED: " + day);
+                String day2 = day.substring(0,2);
+                int date = Integer.parseInt(day2);
+                setHistoryDay(date);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                setHistoryDay(21);
+            }
+
+        });
+
+
+
+
+
+
+
+
+
     }
 
+    public static int getHistoryDay(){
+        return daysHistory;
+    }
+    public void setHistoryDay(int day){
+        daysHistory = day;
+    }
 
     public static void deleteCache(Context context) {
         try {
